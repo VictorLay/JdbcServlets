@@ -1,0 +1,148 @@
+$color-1: rgba(135, 255, 177, 1);
+$color-2: rgba(100, 232, 107, 1);
+$color-3: rgba(161, 255, 123, 1);
+$color-4: rgba(187, 232, 100, 1);
+$color-5: rgba(255, 253, 110, 1);
+
+body {
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  background-image: url(/img/bg.svg);
+  background-size: cover;
+  width: 100%;
+}
+
+@media (max-width: 1350px) {
+  .container {
+    width: 90% !important;
+  }
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em 0;
+  background-color: $color-4;
+  border-radius: 2em;
+  width: 100%;
+  .header__logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header__left-list {
+    display: flex;
+  }
+
+  .header__list-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .header__search-wrapper {
+    display: flex;
+    border: 1px solid #112211;
+  }
+
+  .header__search-input {
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+
+  .header__search-loupe {
+    padding: 0.5em;
+    background-color: #fff;
+  }
+
+  .header__main-logo {
+    margin: 0 1em 0 0;
+    padding: 0;
+    font-size: 3em;
+    color: black;
+  }
+
+  .header__list-link {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2em;
+    padding: 3em 1em;
+    display: block;
+    margin: 0;
+    &:hover {
+      background-color: $color-2;
+    }
+  }
+
+  .header__wrapper--auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 3em;
+  }
+
+  .header__link--auth {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+  }
+
+  .header__ava--auth {
+    width: 20px;
+    height: 20px;
+    display: none;
+  }
+
+  .header__entrance {
+    color: blue;
+    text-decoration: underline;
+  }
+
+  .header__list-img {
+    display: block;
+    margin: 0 1em;
+    padding: 1em;
+    border-radius: 0.5em;
+    &:hover {
+      background-color: $color-2;
+    }
+  }
+}
+.main {
+  .main__wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    width: 100%;
+    margin: 3em 0;
+  }
+
+  .main__item {
+    $margin_item: 0.3em;
+    width: calc((100% / 4) - 1em); //костыль -------
+    height: 40vh;
+    margin: $margin_item;
+    background-color: $color-1;
+    position: relative;
+    &:nth-child(6n + 6) {
+      width: calc(100% / 2);
+    }
+    &:nth-child(6n + 1) {
+      width: calc(100% / 2);
+    }
+  }
+
+  .main__itemTitle {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    margin: 1em;
+  }
+}
