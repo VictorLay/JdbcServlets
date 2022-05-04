@@ -2,7 +2,7 @@ package com.victor.latyshey.beans;
 
 import java.util.Arrays;
 
-public class Book {
+public class Book extends Entity{
 
   private int isbn;
   private String title;
