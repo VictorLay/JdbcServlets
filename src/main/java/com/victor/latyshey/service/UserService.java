@@ -1,14 +1,13 @@
 package com.victor.latyshey.service;
 
-import com.victor.latyshey.beans.Book;
-import java.util.ArrayList;
+import com.victor.latyshey.beans.UserSessionInf;
+import com.victor.latyshey.beans.user.User;
+import com.victor.latyshey.service.exception.ServiceException;
 
-public interface UserService {
+public interface UserService extends Service {
 
-  ArrayList<Book> showAllBooks();
-  ArrayList<Book> findBooksByTitle(String title);
-  ArrayList<Book> findBooksByAuthor(String author);
-  ArrayList<Book> findBooksByPublishing(String publishing);
-  ArrayList<Book> findBooksByPriceRange(int min, int max);
+  User findUser(String login, String password) throws ServiceException;
+  boolean isUserExist(UserSessionInf userSessionInf) throws ServiceException;
+  void register(User user) throws ServiceException;
 
 }
