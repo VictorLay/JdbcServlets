@@ -1,0 +1,67 @@
+/* подключить эти стили в book_creator_page */
+
+body, ::placeholder, button {
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+   font-size: 16px;
+ }
+ 
+ select, input {
+   width: 13em;
+   margin: 0;
+   padding: .5em;
+   border: 1px solid #222;
+ }
+ 
+ select:hover, input:hover {
+   background-color: #f5efef;
+   outline: none;
+ }
+ 
+ .auth {
+   /* .auth__title */
+   /* .auth__wrapper */
+   /* .auth__text */
+   /* .auth__item */
+ }
+ 
+ .auth__form {
+   display: flex;
+   flex-direction: column;
+   gap: 1em;
+   max-width: 30em;
+   margin: 0 auto;
+   padding: 2em;
+   background-color: lightgray;
+   border-radius: 1em;
+   box-shadow: 2px 5px 1em lightgray;
+   color: #222;
+ }
+ 
+ .auth__title {
+   text-align: center;
+ }
+ 
+ .auth__wrapper {
+   display: flex;
+   justify-content: space-between;
+   gap: 1em;
+ }
+ 
+ .btn {
+   box-shadow: 3px 3px 10px lightslategray;
+   font-family: inherit;
+   font-size: 18px;
+   text-transform: uppercase;
+   font-weight: 600;
+   outline: none;
+   color: #222;
+   border-radius: .2em;
+   border: 1px solid #222;
+   padding: .5em 1.5em;
+   margin: 3em auto 0em;
+ }
+ 
+ .btn:hover {
+   background-color: rgba(0, 128, 0, 0.103);
+ }
+ /*# sourceMappingURL=acc.css.map */
