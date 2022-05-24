@@ -12,10 +12,10 @@
     <servlet-name>controller</servlet-name>
     <servlet-class>com.victor.latyshey.controller.ServletController</servlet-class>
   </servlet>
-<!--  <servlet>-->
-<!--    <servlet-name>indexServlet</servlet-name>-->
-<!--    <servlet-class>IndexServlet</servlet-class>-->
-<!--  </servlet>-->
+  <servlet>
+    <servlet-name>indexServlet</servlet-name>
+    <servlet-class>IndexServlet</servlet-class>
+  </servlet>
 
 <!--  <servlet-mapping>-->
 <!--    <servlet-name>mainServlet</servlet-name>-->
@@ -27,10 +27,10 @@
     <url-pattern>/viclay.com</url-pattern>
   </servlet-mapping>
 
-<!--  <servlet-mapping>-->
-<!--    <servlet-name>indexServlet</servlet-name>-->
-<!--    <url-pattern>/enter</url-pattern>-->
-<!--  </servlet-mapping>-->
+  <servlet-mapping>
+    <servlet-name>indexServlet</servlet-name>
+    <url-pattern>/enter</url-pattern>
+  </servlet-mapping>
 
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -43,7 +43,7 @@
 
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/*</url-pattern>
 <!--    <servlet-name>controller</servlet-name>-->
   </filter-mapping>
 
