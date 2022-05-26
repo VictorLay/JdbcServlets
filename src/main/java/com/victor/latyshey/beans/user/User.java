@@ -1,5 +1,6 @@
-package com.victor.latyshey.beans;
+package com.victor.latyshey.beans.user;
 
+import com.victor.latyshey.beans.Entity;
 import java.util.Objects;
 
 public class User extends Entity {
@@ -16,6 +17,12 @@ public class User extends Entity {
     this.login = login;
     this.password = password;
     this.role = new Role();
+  }
+
+  public User(String login, String password, Role role) {
+    this.login = login;
+    this.password = password;
+    this.role = role;
   }
 
   public User(String login, Role role, Integer id) {

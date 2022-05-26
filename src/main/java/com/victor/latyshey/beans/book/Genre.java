@@ -7,6 +7,10 @@ public class Genre extends Entity {
 
   private String genreName;
 
+  public Genre(Integer id) {
+    super(id);
+  }
+
   public Genre(Integer id, String genreName) {
     super(id);
     this.genreName = genreName;
@@ -38,5 +42,10 @@ public class Genre extends Entity {
   @Override
   public int hashCode() {
     return Objects.hash(super.hashCode(), genreName);
+  }
+
+  @Override
+  public String toString() {
+    return genreName;
   }
 }
