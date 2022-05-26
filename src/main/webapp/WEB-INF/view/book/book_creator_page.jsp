@@ -9,9 +9,17 @@
 <html>
 <head>
     <title>Create new Book</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
+    <link
+            rel="stylesheet"
+            href="../../../style/book_creator_page_style.css"
+    />
+
 </head>
 <body>
+
+<jsp:include page="../header.jsp"/>
+
 <form class="auth__form" action="/viclay.com?command=add_new_book" method="post">
     <h1 class="auth__title">Создание новой книги</h1>
     <div class="auth__wrapper">
@@ -37,7 +45,7 @@
     </div>
     <div class="auth__wrapper">
         <span class="auth__text">Выберите жанр</span>
-        <select name="genreName" required >
+        <select name="genreName" required>
             <option value="1">Фэнтези</option>
             <option value="2">Художественная</option>
             <option value="3">Научная</option>
@@ -47,7 +55,7 @@
     </div>
     <div class="auth__wrapper">
         <span class="auth__text">Выберите издательство</span>
-        <select name="publishingName" required >
+        <select name="publishingName" required>
             <option value="1">Питер</option>
             <option value="2">Издательский дом "Звязда"</option>
             <option value="3">Просвещение</option>
@@ -75,7 +83,7 @@
         />
     </div>
     <div class="auth__wrapper">
-        <span class="auth__text" >Автор</span>
+        <span class="auth__text">Автор</span>
         <input
                 class="auth__item"
                 type="text"
@@ -84,7 +92,7 @@
         />
     </div>
     <div class="auth__wrapper">
-        <span class="auth__text" >Введите страну автора</span>
+        <span class="auth__text">Введите страну автора</span>
         <input
                 class="auth__item"
                 type="text"
@@ -93,7 +101,7 @@
         />
     </div>
     <div class="auth__wrapper">
-        <input class="auth__item btn" type="submit" value="создать книгу" />
+        <input class="auth__item btn" type="submit" value="создать книгу"/>
     </div>
 
 </form>

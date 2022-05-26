@@ -25,37 +25,8 @@
     <title>Letter's home</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-      }
 
-      .topnav {
-        overflow: hidden;
-        background-color: #333;
-      }
 
-      .topnav a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-      }
-
-      .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-      }
-
-      .topnav a.active {
-        background-color: #4CAF50;
-        color: white;
-      }
-    </style>
 
     <style>
       * {
@@ -68,26 +39,13 @@
         font-size: 17px;
       }
 
-      .container {
-        position: relative;
-        max-width: 1920px;
-        margin: 0 auto;
-      }
+
 
       .container img {
         vertical-align: middle;
       }
 
-      .container .content {
-        font-family: 'Sofia';
-        font-size: 22px;
-        position: absolute;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
-        color: #f1f1f1;
-        width: 100%;
-        padding: 20px;
-      }
+
 
       /* Column container */
       .row {
@@ -128,47 +86,23 @@
         background: #ddd;
       }
 
-      .log {
-        float: right;
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+
+    <style>
+      .headerNavigation a.activeHome {
+        background-color: #4CAF50;
+        color: white;
       }
     </style>
 
 </head>
 <body>
 
-<div class="container">
-    <img src="https://kanzlei-pozniak.de/wp-content/uploads/2018/01/o-kance.jpg" alt="Notebook" style="width:100%;">
-    <!-- <img src="https://www.ristorantealcavin.it/wp-content/uploads/policy.jpg" alt="Notebook" style="width:100%;"-->
-    <div class="content">
-        <h1>The book house ${test_text}</h1>
-        <p>A room without books is like a body without a soul.</p>
-    </div>
-</div>
-
-<div class="topnav">
-    <a class="active" href="#home">Home</a>
-    <a href="/viclay.com?command=book_showing">Books</a>
-    <a href="#contact">Contact</a>
-    <a href="#about">About</a>
-    <div class="log">
-        <c:choose>
-            <c:when test="${login!=null}">
-                <a href="/viclay.com?command=login">${login}</a>
-                <a href="/viclay.com?command=sign_out">Sign out</a>
-            </c:when>
-            <c:otherwise>
-                <a href="/viclay.com?command=login_page">Login</a>
-                <a href="/viclay.com?command=registration_page">Registration</a>
-            </c:otherwise>
-
-        </c:choose>
-<%--        <a href="/viclay.com?command=login_page">Login</a>--%>
-<%--        <a href="/viclay.com?command=registration_page">Registration</a>--%>
-    </div>
-
-
-</div>
-
+<jsp:include page="../header.jsp"/>
 
 
 

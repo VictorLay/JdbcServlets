@@ -1,0 +1,52 @@
+.headerImageContainer {
+  position: relative;
+  max-width: 1920px;
+
+  margin: 0 auto;
+}
+
+.headerImageContainer .headerImageContent {
+  /*max-width: 1920px;*/
+  /*min-width: 100%;*/
+  min-width: 100%;
+  font-family: 'Sofia';
+  font-size: 22px;
+  position: absolute;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: inherit;
+  padding: 20px;
+}
+
+.headerNavigation {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.headerNavigation a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.headerNavigation a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.headerNavigation a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.headerLog {
+  float: right;
+}
+
+
+
+
