@@ -25,6 +25,11 @@ public class TransactionImpl implements Transaction {
   }
 
   @Override
+  public Connection getConnection() {
+    return connection;
+  }
+
+  @Override
   public AuthorDao getAuthorDao() {
     AuthorDao authorDao = new AuthorDaoImpl();
     return setConnection(authorDao);

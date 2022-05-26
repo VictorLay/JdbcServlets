@@ -6,7 +6,14 @@ public abstract class Entity {
 
   private Integer id;
 
-  public int getId() {
+  public Entity() {
+  }
+
+  public Entity(Integer id) {
+    this.id = id;
+  }
+
+  public Integer getId() {
     return id;
   }
 

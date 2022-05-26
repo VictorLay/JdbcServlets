@@ -1,14 +1,20 @@
 package com.victor.latyshey.connection;
 
+import com.mysql.cj.log.Log;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * The type Pool connection.
  */
-public class PoolConnection implements Connection, AutoCloseable {
+public class PoolConnection implements Connection {
+
+  private static final Logger LOGGER = LogManager.getLogger();
 
 
   private Connection connection;
@@ -18,8 +24,9 @@ public class PoolConnection implements Connection, AutoCloseable {
    *
    * @param connection the connection
    */
-  PoolConnection(Connection connection) {
+  PoolConnection(Connection connection) throws SQLException {
     this.connection = connection;
+//    this.connection.setAutoCommit(true);
   }
 
   @Override
@@ -64,16 +71,21 @@ public class PoolConnection implements Connection, AutoCloseable {
 
   @Override
   public void close() {
+    LOGGER.log(Level.INFO, "Resource was been made free hash=" + this.hashCode());
     try {
+      //todo место возможной ошибки транзакций автозакрытие try-catch with resources приведёт к
+      // автоматическому коммиту операции.
+      // если выполнить закрытие до коммита, то могут перехватить коннектион другие потоки
       connection.setAutoCommit(true);
     } catch (SQLException e) {
-//      LOGGER.error("Connection is not returned tu AUTO-commit state", e);
+      LOGGER.log(Level.ERROR, "Connection is not returned tu AUTO-commit state", e);
       throw new RuntimeException("database is not closed", e);
     }
     ConnectionPool.getInstance().releaseConnection(this);
   }
 
-  //todo автокомит и настоящее закрытие, найти больше информации на тему
+  //todo высвобождать соединение необходимо при коллекте сервиса сборщиком мусора.
+
   /**
    * Real close.
    */

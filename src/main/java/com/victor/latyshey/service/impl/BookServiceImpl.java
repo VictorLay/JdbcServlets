@@ -2,6 +2,7 @@ package com.victor.latyshey.service.impl;
 
 import com.victor.latyshey.beans.book.Author;
 import com.victor.latyshey.beans.book.Book;
+import com.victor.latyshey.dao.BookDAO;
 import com.victor.latyshey.dao.exception.DaoException;
 import com.victor.latyshey.dao.transaction.Transaction;
 import com.victor.latyshey.service.BookService;
@@ -24,6 +25,18 @@ public class BookServiceImpl extends ServiceImpl implements BookService {
     } catch (DaoException e) {
       throw new ServiceException(e);
     }
+  }
+
+  @Override
+  public Book showBook(Integer id) throws ServiceException {
+    BookDAO bookDao = transaction.getBookDao();
+    Book book;
+    try {
+      book = bookDao.read(id);
+    } catch (DaoException e) {
+      throw new ServiceException(e);
+    }
+    return book;
   }
 
   @Override

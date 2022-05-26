@@ -1,14 +1,24 @@
-package com.victor.latyshey.beans;
+package com.victor.latyshey.beans.user;
 
-import static com.victor.latyshey.beans.NameOfRole.of;
+import static com.victor.latyshey.beans.user.NameOfRole.of;
 
-public class Role extends Entity {
+import com.victor.latyshey.beans.Entity;
+import java.io.Serializable;
+
+public class Role extends Entity implements Serializable {
+  private static final long serialVersionUID = 42L;
+
 
   private NameOfRole nameOfRole;
 
   public Role() {
     this.nameOfRole = NameOfRole.UNKNOWN_USER;
     super.setId(1);
+  }
+
+  public Role(NameOfRole nameOfRole) {
+    this.nameOfRole = nameOfRole;
+    super.setId(nameOfRole.getId());
   }
 
   public Role(String role, Integer id) {

@@ -7,6 +7,10 @@ public class Publishing extends Entity {
 
   private String publishingName;
 
+  public Publishing(Integer id) {
+    super(id);
+  }
+
   public Publishing(Integer id, String publishingName) {
     super(id);
     this.publishingName = publishingName;
@@ -38,5 +42,10 @@ public class Publishing extends Entity {
   @Override
   public int hashCode() {
     return Objects.hash(super.hashCode(), publishingName);
+  }
+
+  @Override
+  public String toString() {
+    return publishingName;
   }
 }

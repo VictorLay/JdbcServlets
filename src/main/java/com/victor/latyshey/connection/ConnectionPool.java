@@ -11,6 +11,10 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import util.ResourceManager;
 
 public class ConnectionPool {
 
@@ -20,9 +24,11 @@ public class ConnectionPool {
   private BlockingQueue<Connection> freeConnections;
   private BlockingQueue<Connection> takenConnections;
 
+  private static final Logger logger = LogManager.getLogger(ConnectionPool.class);
+
   static {
     connectionPoolReference = new AtomicReference<>();
-    INITIAL_CAPACITY = 15;
+    INITIAL_CAPACITY = 20;
     lock = new ReentrantLock();
   }
 
@@ -41,7 +47,7 @@ public class ConnectionPool {
         DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
       }
     } catch (SQLException e) {
-//      logger.log(Level.ERROR, "Can't register driver");
+      logger.log(Level.ERROR, "Can't register driver " + ResourceManager.getProperty("db.driver"));
       throw new PoolException(e + "Cant' register driver");
     } finally {
       lock.unlock();
@@ -60,6 +66,7 @@ public class ConnectionPool {
       try {
         Connection connection = new PoolConnection(DriverManager.getConnection(connectionURL, login, password));
         freeConnections.add(connection);
+        logger.log(Level.INFO, "created connection with hash=" + connection.hashCode());
       } catch (SQLException e) {
 //        logger.log(Level.ERROR, "Connection can't initialize", e);
         throw new PoolException("Connection can't initialize", e);
@@ -104,12 +111,14 @@ public class ConnectionPool {
   public void destroy() {
     freeConnections.addAll(takenConnections);
     takenConnections.clear();
-    for (int i = 0; i < freeConnections.size(); i++) {
+    int size = freeConnections.size();
+    for (int i = 0; i < size; i++) {
       try {
         PoolConnection connection = (PoolConnection) freeConnections.take();
+        logger.log(Level.INFO, "Real close connection with hash=" + connection.hashCode());
         connection.realClose();
       } catch (InterruptedException e) {
-//        logger.log(Level.ERROR, "Connection close exception", e);
+        logger.log(Level.ERROR, "Connection close exception", e);
       }
     }
     Enumeration<Driver> drivers = DriverManager.getDrivers();

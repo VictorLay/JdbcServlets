@@ -14,6 +14,14 @@ public class Author extends Entity {
     this.country = country;
   }
 
+  public Author(String name, String country) {
+    this.name = name;
+    this.country = country;
+  }
+  public Author(String name) {
+    this.name = name;
+  }
+
   public String getName() {
     return name;
   }
@@ -48,5 +56,10 @@ public class Author extends Entity {
   @Override
   public int hashCode() {
     return Objects.hash(super.hashCode(), name);
+  }
+
+  @Override
+  public String toString() {
+    return "Author " + name + " from " + country + ".";
   }
 }

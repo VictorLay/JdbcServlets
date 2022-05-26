@@ -3,16 +3,23 @@ package com.victor.latyshey.controller;
 import com.victor.latyshey.connection.ConnectionPool;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
+import com.victor.latyshey.dao.exception.DaoException;
+import com.victor.latyshey.dao.transaction.TransactionFactory;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import util.ResourceManager;
 
 public class ServletController extends HttpServlet {
+
+  private final Logger log = LogManager.getLogger();
 
   @Override
   public void destroy() {
@@ -22,6 +29,9 @@ public class ServletController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+//    resp.setContentType("text/html;charset=UTF-8");
+    req.setCharacterEncoding("UTF-8");
+//    resp.setCharacterEncoding("UTF-8");
     System.out.println("hello it's get request");
     processRequest(req, resp, "GET");
   }
@@ -29,14 +39,15 @@ public class ServletController extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    req.setCharacterEncoding("UTF-8");
     System.out.println("hello it's post request");
     processRequest(req, resp, "POST");
-    try {
-      req.setCharacterEncoding("UTF-8");
-    } catch (UnsupportedEncodingException e) {
-      System.out.println("encoding wasn't set");
-      throw new RuntimeException(e);
-    }
+//    try {
+//      req.setCharacterEncoding("UTF-8");
+//    } catch (UnsupportedEncodingException e) {
+//      System.out.println("encoding wasn't set");
+//      throw new RuntimeException(e);
+//    }
 
 
   }
@@ -45,7 +56,6 @@ public class ServletController extends HttpServlet {
       throws ServletException, IOException {
 
     String commandName = req.getParameter("command");
-//    System.out.println(commandName);
     Command command = CommandProvider.getCommand(commandName);
     if (command == null) {
       getServletContext().getRequestDispatcher(ResourceManager.getProperty("page.home"))
