@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebServlet("/hello")
 public class MainServlet extends HttpServlet {
   private final static String LOGIN = "/WEB-INF/view/enterence.jsp";
 

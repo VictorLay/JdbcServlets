@@ -1,75 +1,71 @@
 package com.victor.latyshey;
 
-import com.victor.latyshey.beans.Book;
-import com.victor.latyshey.controller.CommandProvider;
-import com.victor.latyshey.controller.command.Command;
+import com.victor.latyshey.beans.book.Author;
+import com.victor.latyshey.beans.book.Book;
+import com.victor.latyshey.beans.book.Genre;
+import com.victor.latyshey.beans.book.Publishing;
+import com.victor.latyshey.beans.builder.BookBuilder;
+import com.victor.latyshey.beans.user.Role;
+import com.victor.latyshey.beans.user.User;
+import com.victor.latyshey.connection.ConnectionPool;
+import com.victor.latyshey.connection.PoolException;
+import com.victor.latyshey.dao.AuthorDao;
 import com.victor.latyshey.dao.BookDAO;
-import com.victor.latyshey.dao.factory.DaoFactory;
-import com.victor.latyshey.service.EmployeeService;
+import com.victor.latyshey.dao.UserDAO;
+import com.victor.latyshey.dao.exception.DaoException;
+import com.victor.latyshey.dao.impl.AuthorDaoImpl;
+import com.victor.latyshey.dao.impl.BookDAOImpl;
+import com.victor.latyshey.dao.impl.UserDaoImpl;
+import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.UserService;
-import com.victor.latyshey.service.impl.EmployeeServiceImpl;
+import com.victor.latyshey.service.exception.ServiceException;
+import com.victor.latyshey.service.impl.BookServiceImpl;
 import com.victor.latyshey.service.impl.UserServiceImpl;
-import util.ResourceManager;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
 
-  private final static String URL = "jdbc:mysql://localhost:3300/mydbtest";
-  private final static String USERNAME = "root";
-  private final static String PASSWORD = "root";
-
   public static void main(String[] args) {
+    Logger logger = LogManager.getLogger();
 
-//    System.out.println(ResourceManager.getProperty("page.home"));
+    Locale defaultLocale = Locale.getDefault();
+    System.out.println(defaultLocale.getDisplayCountry(Locale.CHINA));
 
-    System.out.println("main");
-    Tets test = new Tets(181);
-    System.out.println(test.a);
-
-//    DaoFactory daoFactory = DaoFactory.getInstance();
-//    BookDAO bookDAO = daoFactory.getBookDAO();
-//    for (Book book: bookDAO.readAllBooks()) {
-//      System.out.println(book);
+//    BookDAO bookDAO = new BookDAOImpl();
+//    BookService service = new BookServiceImpl();
+////    System.out.println("1256".hashCode());
+////    User user = new User("ViclayCreateTest", "0129915");
+////    user.setRole(new Role("EMPLOYEE_USER", 3));
+////    user.setId(10);
+////    AuthorDao authorDao = new AuthorDaoImpl();
+//
+//    try {
+//      List<Author> authors = new ArrayList<>();
+//      authors.add(new Author("Жан Амери"));
+//      authors.add(new Author("Густав", "Германия"));
+//      BookBuilder builder = new BookBuilder();
+//      builder.setId(198565);
+//      builder.setTitle("testTitlePr");
+//      builder.setGenre(new Genre(2, "Художественная"));
+//      builder.setPublishing(new Publishing(105, "Москва"));
+//      builder.setYear(1917);
+//      builder.setPrice(16.25f);
+//      builder.setAuthors(authors);
+//      service.createBook(builder.getResult());
+//
+//
+//    } catch (ServiceException e) {
+//      throw new RuntimeException(e);
 //    }
-
-//    Book book = new Book((int) (19129915*Math.random()), "Бульба", "Художественная литература", "Питер", 2008,
-//        "твёрдый", "Картошку садят", 10.99f);
-//    String[] authors = {"Николай Гоголь","Жерар Депардье"};
-//    book.setAuthors(authors);
-
-//    BookDAO bookDAO = new BookImpl();
-////    bookDAO.createBook(book);
-//
-////    Book book = bookDAO.readBookByIsbn(10695596);
-//
-//    for(String author : book.getAuthors()){
-//      System.out.println(author);
-//    }
-//    EmployeeService serviceE = new EmployeeServiceImpl();
-//    UserService userService = new UserServiceImpl();
-//    Book book = new Book();
-//    book.setIsbn(18129915);
-//    book.setAuthors(new String[]{"Стругацкий Е.У.", "Стругацкий А.У."});
-//    book.setBookBinding("мягкий");
-//    book.setBookDescription("Башня кипятит мозги выродкам!");
-//    book.setGenre("Классическая литература");
-//    book.setPrice(22.15f);
-//    book.setPublishing("Питер");
-//    book.setTitle("Башня");
-//    book.setYear(2002);
-//
-////    service.addBookToStorage(book);
-////    service.deleteBookFromStorage(10695596);
-////    serviceE.addBookToStorage(book);
-////    service.updateBookInStorage(book);
-//    for(Book bookS : userService.showAllBooks()){
-//      System.out.println(bookS);
-//    }
-////    for (Book b : bookDAO.readBooksByTitle("%Бульба%")) {
-////      System.out.println(b);
-////    }
-//
-//
-//
-
   }
+
 }
+
