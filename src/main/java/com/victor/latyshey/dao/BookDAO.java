@@ -1,17 +1,16 @@
 package com.victor.latyshey.dao;
 
-import com.victor.latyshey.beans.Book;
+import com.victor.latyshey.beans.book.Book;
+import com.victor.latyshey.dao.exception.DaoException;
 import java.util.ArrayList;
+import java.util.List;
 
-public interface BookDAO {
+public interface BookDAO extends DAO<Book> {
 
-  boolean createBook(Book book);
-  Book readBookByIsbn(int isbn);
-  ArrayList<Book> readAllBooks() ;
+  List<Book> readAllBooks() throws DaoException;
 
 
-  ArrayList<Book> readBooksByTitle(String title);
-  ArrayList<Book> readBooksByPrice(int min, int max);
-  void updateBook(Book book);
-  boolean deleteBookByIsbn(int isbn);
+//  ArrayList<Book> readBooksByTitle(String title) throws DaoException;
+//
+//  ArrayList<Book> readBooksByPrice(int min, int max) throws DaoException;
 }

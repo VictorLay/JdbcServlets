@@ -7,5 +7,6 @@ import java.util.List;
 public interface BookService extends Service {
 
   List<Book> showBooks() throws ServiceException;
+  Book showBook(Integer id) throws ServiceException;
   void createBook(Book book) throws ServiceException;
 }
