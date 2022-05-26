@@ -1,4 +1,4 @@
-package com.victor.latyshey.controller.command.impl;
+package com.victor.latyshey.controller.command.impl.book;
 
 import com.victor.latyshey.beans.book.Book;
 import com.victor.latyshey.controller.command.Command;
@@ -8,40 +8,28 @@ import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
-import com.victor.latyshey.service.impl.ServiceImpl;
-import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import util.ResourceManager;
 
-public class ShowBooksCommand implements Command {
-
-  private final Logger logger;
-
-  public ShowBooksCommand() {
-    logger = LogManager.getLogger();
-  }
+public class ShowBookPageCommand implements Command {
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     BookService bookService = null;
     try {
       bookService = new BookServiceImpl(TransactionFactory.getInstance().getTransaction());
-
-      req.setAttribute("books", bookService.showBooks());
-
-    } catch (ServiceException | DaoException e) {
-      logger.log(Level.ERROR, e);
+      Integer bookId = Integer.parseInt(req.getParameter("book_id"));
+      Book book = bookService.showBook(bookId);
+      req.setAttribute("book", book);
+    } catch (DaoException | ServiceException e) {
+      //todo add error log
     } finally {
       if (bookService != null) {
         bookService.releaseTheConnection();
       }
     }
 
-    return new CommandResponse(ResourceManager.getProperty("page.books_showing"), false);
+    return new CommandResponse(ResourceManager.getProperty("page.book_showing"), false);
   }
 }

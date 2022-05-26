@@ -1,7 +1,6 @@
-package com.victor.latyshey.controller.command.impl;
+package com.victor.latyshey.controller.command.impl.user;
 
 import com.victor.latyshey.beans.UserSessionInf;
-import com.victor.latyshey.beans.user.User;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.dao.exception.DaoException;
@@ -17,28 +16,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import util.ResourceManager;
 
-public class LoginCommand implements Command {
-
+public class LoginPageCommand implements Command {
   private static final String LOGIN = "login";
-  private static final String PASSWORD = "password";
   private static final String ROLE = "role";
   private static final String SESSION_USER_INFO = "user";
   private static final Logger logger= LogManager.getLogger();
-
-
-
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     UserService userService = null;
     try {
       userService = new UserServiceImpl(TransactionFactory.getInstance().getTransaction());
-
-      if (!isAuthorized(req, userService)) {
-        setSessionAttributes(req, userService);
+      if (isAuthorized(req, userService)) {
+        return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
       }
-      return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
+      return new CommandResponse(ResourceManager.getProperty("page.login"), false);
     } catch (DaoException | ServiceException e) {
-      logger.log(Level.ERROR, "The attempt of login has complete incorrect!", e);
+      logger.log(Level.ERROR, e);
       return new CommandResponse(ResourceManager.getProperty("page.enter_error"), false);
     } finally {
       if (userService != null) {
@@ -46,7 +39,6 @@ public class LoginCommand implements Command {
       }
     }
   }
-
 
   private boolean isAuthorized(HttpServletRequest req, UserService userService)
       throws ServiceException {
@@ -64,17 +56,6 @@ public class LoginCommand implements Command {
       logger.log(Level.DEBUG, validator.isValid(user));
       return false;
     }
-  }
-
-  private void setSessionAttributes(HttpServletRequest req, UserService userService)
-      throws ServiceException {
-    User user = userService.findUser(req.getParameter(LOGIN), req.getParameter(PASSWORD));
-    UserSessionInf sessionInf = new UserSessionInf(user.getLogin(),
-        user.getRole().getRoleName().getValue(), user.getId());
-
-    req.getSession().setAttribute(LOGIN, user.getLogin());
-    req.getSession().setAttribute(ROLE, user.getRole().getRoleName().getValue());
-    req.getSession().setAttribute(SESSION_USER_INFO, sessionInf);
   }
 
 }

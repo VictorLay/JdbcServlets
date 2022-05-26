@@ -1,4 +1,4 @@
-package com.victor.latyshey.controller.command.impl;
+package com.victor.latyshey.controller.command.impl.user;
 
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;

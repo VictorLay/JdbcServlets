@@ -1,4 +1,4 @@
-package com.victor.latyshey.controller.command.impl;
+package com.victor.latyshey.controller.command.impl.user;
 
 import com.victor.latyshey.beans.UserSessionInf;
 import com.victor.latyshey.beans.user.NameOfRole;

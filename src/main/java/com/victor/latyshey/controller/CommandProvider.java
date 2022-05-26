@@ -1,15 +1,16 @@
 package com.victor.latyshey.controller;
 
 import com.victor.latyshey.controller.command.Command;
-import com.victor.latyshey.controller.command.impl.AddNewBookCommand;
-import com.victor.latyshey.controller.command.impl.AddNewBookPageCommand;
-import com.victor.latyshey.controller.command.impl.LoginCommand;
-import com.victor.latyshey.controller.command.impl.LoginPageCommand;
-import com.victor.latyshey.controller.command.impl.RegistrationCommand;
-import com.victor.latyshey.controller.command.impl.RegistrationPageCommand;
-import com.victor.latyshey.controller.command.impl.ShowBookPageCommand;
-import com.victor.latyshey.controller.command.impl.ShowBooksCommand;
-import com.victor.latyshey.controller.command.impl.SignOutCommand;
+import com.victor.latyshey.controller.command.impl.book.AddNewBookCommand;
+import com.victor.latyshey.controller.command.impl.book.AddNewBookPageCommand;
+import com.victor.latyshey.controller.command.impl.book.UpdateBookCommand;
+import com.victor.latyshey.controller.command.impl.user.LoginCommand;
+import com.victor.latyshey.controller.command.impl.user.LoginPageCommand;
+import com.victor.latyshey.controller.command.impl.user.RegistrationCommand;
+import com.victor.latyshey.controller.command.impl.user.RegistrationPageCommand;
+import com.victor.latyshey.controller.command.impl.book.ShowBookPageCommand;
+import com.victor.latyshey.controller.command.impl.book.ShowBooksPageCommand;
+import com.victor.latyshey.controller.command.impl.user.SignOutCommand;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,9 +25,10 @@ public class CommandProvider {
     commandStorage.put("login", new LoginCommand());
     commandStorage.put("add_new_book_page", new AddNewBookPageCommand());
     commandStorage.put("add_new_book", new AddNewBookCommand());
-    commandStorage.put("book_showing", new ShowBooksCommand());
+    commandStorage.put("book_showing", new ShowBooksPageCommand());
     commandStorage.put("sign_out", new SignOutCommand());
     commandStorage.put("show_book", new ShowBookPageCommand());
+    commandStorage.put("update_book", new UpdateBookCommand());
   }
 
   public static Command getCommand(String commandName) {

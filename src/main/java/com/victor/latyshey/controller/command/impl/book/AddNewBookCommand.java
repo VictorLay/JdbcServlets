@@ -1,4 +1,4 @@
-package com.victor.latyshey.controller.command.impl;
+package com.victor.latyshey.controller.command.impl.book;
 
 import com.victor.latyshey.beans.book.Author;
 import com.victor.latyshey.beans.book.Book;
