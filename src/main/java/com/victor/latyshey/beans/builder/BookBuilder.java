@@ -5,6 +5,7 @@ import com.victor.latyshey.beans.book.Book;
 import com.victor.latyshey.beans.book.Genre;
 import com.victor.latyshey.beans.book.Publishing;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BookBuilder {
@@ -46,7 +47,7 @@ public class BookBuilder {
   }
 
   public void setAuthors(List<Author> authors) {
-    this.authors = authors;
+    this.authors = new ArrayList<>(authors);
   }
 
   public void addAuthor(Author author){
@@ -54,7 +55,7 @@ public class BookBuilder {
   }
 
   public Book getResult(){
-    return new Book(id, title, genre, publishing, year, price, authors);
+    return new Book(id, title, genre, publishing, year, price, new ArrayList<>(authors));
   }
 
   public void reset(){
