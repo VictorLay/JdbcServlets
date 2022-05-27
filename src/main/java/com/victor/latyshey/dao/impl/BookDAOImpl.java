@@ -5,8 +5,6 @@ import com.victor.latyshey.beans.book.Book;
 import com.victor.latyshey.beans.book.Genre;
 import com.victor.latyshey.beans.book.Publishing;
 import com.victor.latyshey.beans.builder.BookBuilder;
-import com.victor.latyshey.connection.ConnectionPool;
-import com.victor.latyshey.connection.PoolException;
 import com.victor.latyshey.dao.BookDAO;
 import com.victor.latyshey.dao.exception.DaoException;
 import java.sql.PreparedStatement;
@@ -31,6 +29,8 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
   private static final String READ_ALL_BOOKS = "SELECT books.`isbn` as id, title, books.genre_id, books.publishing_id, `year`, `price`, genre, publishing, group_concat(authors.author_name) as `authors` FROM books inner join genre on genre.genre_id = books.genre_id inner join publishing on publishing.publishing_id = books.publishing_id inner join books_authors on books.isbn = books_authors.isbn inner join authors on authors.author_id = books_authors.author_id GROUP BY books.`isbn`;";
   private static final String READ_BOOK_BY_ID = "SELECT books.`isbn` as id, title, books.genre_id, books.publishing_id, `year`, `price`, genre, publishing, group_concat(authors.author_name) as `authors` FROM books inner join genre on genre.genre_id = books.genre_id inner join publishing on publishing.publishing_id = books.publishing_id inner join books_authors on books.isbn = books_authors.isbn inner join authors on authors.author_id = books_authors.author_id WHERE books.`isbn` = (?);";
   private static final String UPDATE = "UPDATE books SET genre_id = ?, publishing_id = ?, `year` = ?, price = ?, title = ? WHERE isbn = ?;";
+  private static final String DELETE_BOOK_AUTHORS_LINK_BY_ISBN = "DELETE FROM `books_authors` WHERE isbn=(?);";
+
   private static final String DELETE = "DELETE FROM `books` WHERE `isbn` = (?);";
   private static final String CREATE_BOOK_AUTHORS_LINK = "INSERT INTO books_authors (isbn, author_id) VALUES (?,?);";
 
@@ -100,13 +100,31 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
   @Override
   public void update(Book book) throws DaoException {
 
-    try (PreparedStatement statement = connection.prepareStatement(UPDATE)) {
+    try (PreparedStatement statement = connection.prepareStatement(UPDATE);
+        PreparedStatement statement1 = connection.prepareStatement(DELETE_BOOK_AUTHORS_LINK_BY_ISBN);
+    PreparedStatement statementForLinkingTable = connection.prepareStatement(CREATE_BOOK_AUTHORS_LINK)) {
       statement.setInt(1, book.getGenre().getId());
       statement.setInt(2, book.getPublishing().getId());
       statement.setInt(3, book.getYear());
       statement.setFloat(4, book.getPrice());
       statement.setString(5, book.getTitle());
+      statement.setInt(6, book.getId());
       statement.executeUpdate();
+
+      statement1.setInt(1, book.getId());
+      statement1.executeUpdate();
+
+      if (!book.getAuthors().isEmpty()) {
+        for (Author author : book.getAuthors()) {
+          if (author.getId() == null) {
+            continue;
+          }
+          statementForLinkingTable.setInt(1, book.getId());
+          statementForLinkingTable.setInt(2, author.getId());
+          statementForLinkingTable.executeUpdate();
+        }
+      }
+
     } catch (SQLException e) {
       throw new DaoException(e);
     }

@@ -4,6 +4,7 @@ import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.impl.book.AddNewBookCommand;
 import com.victor.latyshey.controller.command.impl.book.AddNewBookPageCommand;
 import com.victor.latyshey.controller.command.impl.book.UpdateBookCommand;
+import com.victor.latyshey.controller.command.impl.book.UpdateBookPageCommand;
 import com.victor.latyshey.controller.command.impl.user.LoginCommand;
 import com.victor.latyshey.controller.command.impl.user.LoginPageCommand;
 import com.victor.latyshey.controller.command.impl.user.RegistrationCommand;
@@ -29,6 +30,7 @@ public class CommandProvider {
     commandStorage.put("sign_out", new SignOutCommand());
     commandStorage.put("show_book", new ShowBookPageCommand());
     commandStorage.put("update_book", new UpdateBookCommand());
+    commandStorage.put("update_book_page", new UpdateBookPageCommand());
   }
 
   public static Command getCommand(String commandName) {
