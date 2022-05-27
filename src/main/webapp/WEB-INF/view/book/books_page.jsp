@@ -15,6 +15,10 @@
     <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
 
     <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+      }
 
       .bookContainerMain {
         margin-left: auto;

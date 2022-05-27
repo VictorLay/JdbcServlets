@@ -10,4 +10,5 @@ public interface BookService extends Service {
   Book showBook(Integer id) throws ServiceException;
   void createBook(Book book) throws ServiceException;
   void updateBook(Book book) throws ServiceException;
+  void deleteBook(Integer id) throws ServiceException;
 }

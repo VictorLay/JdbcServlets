@@ -78,6 +78,22 @@ public class BookServiceImpl extends ServiceImpl implements BookService {
     }
   }
 
+  @Override
+  public void deleteBook(Integer id) throws ServiceException {
+    BookDAO bookDao = transaction.getBookDao();
+    try {
+      bookDao.delete(id);
+      transaction.commit();
+    } catch (DaoException e) {
+      try {
+        transaction.rollback();
+      } catch (DaoException ex) {
+        throw new ServiceException(ex);
+      }
+      throw new ServiceException(e);
+    }
+  }
+
   private void setAuthorsAccordingToDataBase(Book book) throws DaoException {
     for (Author author: book.getAuthors()) {
       Author authorFromDB = transaction.getAuthorDao().readByName(author.getName());
@@ -90,16 +106,5 @@ public class BookServiceImpl extends ServiceImpl implements BookService {
     }
   }
 
-//  private void updateAuthorsInDateBase(Book book) throws DaoException{
-//    for (Author author: book.getAuthors()) {
-//      Author authorFromDB = transaction.getAuthorDao().readByName(author.getName());
-//      if (authorFromDB == null) {
-//        author.setId(transaction.getAuthorDao().create(new Author(author.getName(), author.getCountry())));
-//        continue;
-//      }
-//      author.setId(authorFromDB.getId());
-//      author.setCountry(authorFromDB.getCountry());
-//    }
-//  }
 
 }

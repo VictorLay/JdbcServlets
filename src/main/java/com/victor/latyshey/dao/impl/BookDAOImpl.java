@@ -132,9 +132,14 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
 
   @Override
   public void delete(Integer id) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(DELETE)) {
+    try (PreparedStatement statement = connection.prepareStatement(DELETE);
+        PreparedStatement authorStatement = connection
+            .prepareStatement(DELETE_BOOK_AUTHORS_LINK_BY_ISBN)) {
       statement.setInt(1, id);
       statement.executeUpdate();
+
+      authorStatement.setInt(1, id);
+      authorStatement.executeUpdate();
     } catch (SQLException e) {
       throw new DaoException(e);
     }
