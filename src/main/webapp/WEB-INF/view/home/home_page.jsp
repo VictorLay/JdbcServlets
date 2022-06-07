@@ -8,25 +8,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<c:choose>--%>
-<%--    <c:when test="${sessionScope.language != null}">--%>
-<%--        <fmt:setLocale value="${sessionScope.language}" variant="en"/>--%>
-<%--    </c:when>--%>
-<%--    <c:otherwise>--%>
-<%--        <fmt:setLocale value="en"/>--%>
-<%--    </c:otherwise>--%>
-<%--</c:choose>--%>
-<fmt:setLocale value="ru"/>
-<fmt:setBundle basename="lang" var="lang"/>
-<fmt:message bundle="${lang}" key="header.title" var="test_text"/>
 
 <html>
 <head>
     <title>Letter's home</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 
     <style>
       * {
@@ -45,41 +32,33 @@
         vertical-align: middle;
       }
 
-
-
-      /* Column container */
       .row {
-        display: -ms-flexbox; /* IE10 */
+        display: -ms-flexbox;
         display: flex;
-        -ms-flex-wrap: wrap; /* IE10 */
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
       }
 
-      /* Create two unequal columns that sits next to each other */
-      /* Sidebar/left column */
       .side {
-        -ms-flex: 30%; /* IE10 */
+        -ms-flex: 30%;
         flex: 30%;
         background-color: #f1f1f1;
         padding: 20px;
       }
 
-      /* Main column */
       .main {
-        -ms-flex: 70%; /* IE10 */
+        -ms-flex: 70%;
         flex: 70%;
         background-color: white;
         padding: 20px;
       }
 
-      /* Fake image, just for this example */
       .fakeimg {
         background-color: #aaa;
         width: 100%;
         padding: 20px;
       }
 
-      /* Footer */
       .footer {
         padding: 20px;
         text-align: center;
@@ -104,12 +83,6 @@
 
 <jsp:include page="../header.jsp"/>
 
-
-
-
-
-
-<%--some content--%>
 <div>
     <div class="row">
         <div class="side">
