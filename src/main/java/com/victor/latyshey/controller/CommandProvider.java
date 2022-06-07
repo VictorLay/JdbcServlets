@@ -1,6 +1,7 @@
 package com.victor.latyshey.controller;
 
 import com.victor.latyshey.controller.command.Command;
+import com.victor.latyshey.controller.command.impl.action.ChangeLangCommand;
 import com.victor.latyshey.controller.command.impl.book.AddNewBookCommand;
 import com.victor.latyshey.controller.command.impl.book.AddNewBookPageCommand;
 import com.victor.latyshey.controller.command.impl.book.DeleteBookCommand;
@@ -39,6 +40,7 @@ public class CommandProvider {
     commandStorage.put("delete_book_page", new DeleteBookPageCommand());
     commandStorage.put("employee_menu_page", new EmployeeMenuPageCommand());
     commandStorage.put("admin_menu_page", new AdminMenuPageCommand());
+    commandStorage.put("change_lang_command", new ChangeLangCommand());
   }
 
   public static Command getCommand(String commandName) {
