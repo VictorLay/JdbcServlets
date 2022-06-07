@@ -29,10 +29,7 @@ public class ServletController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-//    resp.setContentType("text/html;charset=UTF-8");
     req.setCharacterEncoding("UTF-8");
-//    resp.setCharacterEncoding("UTF-8");
-    System.out.println("hello it's get request");
     processRequest(req, resp, "GET");
   }
 
@@ -40,20 +37,12 @@ public class ServletController extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     req.setCharacterEncoding("UTF-8");
-    System.out.println("hello it's post request");
     processRequest(req, resp, "POST");
-//    try {
-//      req.setCharacterEncoding("UTF-8");
-//    } catch (UnsupportedEncodingException e) {
-//      System.out.println("encoding wasn't set");
-//      throw new RuntimeException(e);
-//    }
-
-
   }
 
   private void processRequest(HttpServletRequest req, HttpServletResponse resp, String requestType)
       throws ServletException, IOException {
+    System.out.println("language " + req.getSession().getAttribute("language"));
 
     String commandName = req.getParameter("command");
     Command command = CommandProvider.getCommand(commandName);
