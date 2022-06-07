@@ -2,11 +2,13 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="../../../style/book_creator_page_style.css"/>
 </head>
 <body>
 <jsp:include page="../header.jsp"/>
+<h3>Для обновления книги введите её ISBN номер и заполните обновлённые данные о книге</h3>
 
-<form action="/viclay.com?command=update_book" method="post">
+<form class="auth__form" action="/viclay.com?command=update_book" method="post">
     <h1>Обновление книги</h1>
     <div>
         <span> ISBN </span>
@@ -81,7 +83,7 @@
     <div>
         <input
                 type="submit"
-                value="создать книгу"
+                value="Обновить информацию о книге"
         />
     </div>
 </form>

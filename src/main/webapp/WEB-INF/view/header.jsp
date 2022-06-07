@@ -18,8 +18,7 @@
     <div class="headerLog">
         <c:choose>
             <c:when test="${login!=null}">
-<%--                todo add separate check/validation for user role --%>
-                <a href="/viclay.com?command=add_new_book_page">Employee room</a>
+                <a href="/viclay.com?command=employee_menu_page">Employee room</a>
                 <a href="/viclay.com?command=login">${login}</a>
                 <a href="/viclay.com?command=sign_out">Sign out</a>
             </c:when>
