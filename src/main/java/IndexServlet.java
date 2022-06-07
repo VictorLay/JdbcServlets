@@ -10,7 +10,7 @@ import java.io.IOException;
 public class IndexServlet extends HttpServlet {
 
   private final static String MENU = "/WEB-INF/view/user_menu.jsp";
-  private final static String SIMPLE = "/WEB-INF/view/book/simple.jsp";
+  private final static String SIMPLE = "/WEB-INF/htmlFromRusik/header/header.jsp";
 
   @Override
   public void init() throws ServletException {

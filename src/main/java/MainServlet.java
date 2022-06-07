@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
-  private final static String LOGIN = "/WEB-INF/view/enterence.jsp";
+  private final static String LOGIN = "/WEB-INF/htmlFromRusik/header/header.jsp";
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)

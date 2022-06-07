@@ -13,7 +13,7 @@
 <body>
 <jsp:include page="../header.jsp"/>
 
-<h1>On this page is stand admin's possibilities</h1>
+<h1>On this page is contain admin's possibilities</h1>
 
 </body>
 </html>
