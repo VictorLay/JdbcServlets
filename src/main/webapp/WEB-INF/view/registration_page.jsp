@@ -16,6 +16,7 @@
     />
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="auth">
     <div class="container">
         <form class="auth__form" action="/viclay.com?command=registration" method="post" onsubmit="return validate(this)">

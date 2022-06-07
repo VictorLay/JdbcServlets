@@ -19,6 +19,7 @@
     <title>Вход в систему</title>
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="auth">
     <div class="container">
         <form class="auth__form" action="/viclay.com?command=login" method="post">
