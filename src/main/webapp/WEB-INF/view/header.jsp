@@ -16,9 +16,16 @@
     <a class="activeBooks" href="/viclay.com?command=book_showing">Books</a>
 
     <div class="headerLog">
+        <c:set var="adm_role" value="admin_user" scope="session"/>
+        <c:set var="empl_role" value="employee_user" scope="session"/>
         <c:choose>
-            <c:when test="${login!=null}">
+            <c:when test='${role==empl_role}'>
                 <a href="/viclay.com?command=employee_menu_page">Employee room</a>
+                <a href="/viclay.com?command=login">${login}</a>
+                <a href="/viclay.com?command=sign_out">Sign out</a>
+            </c:when>
+            <c:when test='${role==adm_role}'>
+                <a href="/viclay.com?command=admin_menu_page">Admin room</a>
                 <a href="/viclay.com?command=login">${login}</a>
                 <a href="/viclay.com?command=sign_out">Sign out</a>
             </c:when>
@@ -26,7 +33,6 @@
                 <a href="/viclay.com?command=login_page">Login</a>
                 <a href="/viclay.com?command=registration_page">Registration</a>
             </c:otherwise>
-
         </c:choose>
     </div>
 </div>
