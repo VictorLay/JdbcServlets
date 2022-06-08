@@ -1,38 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>Account information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      img.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        width: 200px;
+      }
+    </style>
 </head>
 <body>
-<%--<%String login = (String) session.getAttribute("login");%>--%>
-<div>Привет
-    <c:choose>
-        <c:when test="${login!=null}">
-            <ul>
-                <li>
-                        ${login}
-                </li>
+<jsp:include page="../header.jsp"/>
+<img class="sticky" src="https://html5css.ru/edithtm/img_avatar.png" alt="Avatar">
+<h2>Information about user:</h2>
+<c:choose>
+    <c:when test="${login!=null}">
+        <p>NickName of user: ${login}</p>
+        <p>User role: ${role}<p/>
+        <p>User id: ${user.id}</p>
 
-                <li>
-                        ${role}
-                </li>
-
-                <li>
-                        ${user.id}
-                </li>
-                <li>
-                    <a href="/viclay.com?command=book_showing">Посмотреть все книги</a>
-                </li>
-            </ul>
-
-
-
-        </c:when>
-        <c:otherwise>
-            кто ты ?
-        </c:otherwise>
-    </c:choose>
-</div>
+        <a href="/viclay.com">Перейти на главную</a>
+    </c:when>
+    <c:otherwise>
+        <a href="/viclay.com">Перейти на главную</a>
+    </c:otherwise>
+</c:choose>
 </body>
 </html>
