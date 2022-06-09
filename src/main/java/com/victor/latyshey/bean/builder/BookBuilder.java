@@ -1,11 +1,10 @@
-package com.victor.latyshey.beans.builder;
+package com.victor.latyshey.bean.builder;
 
-import com.victor.latyshey.beans.book.Author;
-import com.victor.latyshey.beans.book.Book;
-import com.victor.latyshey.beans.book.Genre;
-import com.victor.latyshey.beans.book.Publishing;
+import com.victor.latyshey.bean.book.Author;
+import com.victor.latyshey.bean.book.Book;
+import com.victor.latyshey.bean.book.Genre;
+import com.victor.latyshey.bean.book.Publishing;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class BookBuilder {

@@ -1,6 +1,6 @@
 package com.victor.latyshey.dao;
 
-import com.victor.latyshey.beans.book.Author;
+import com.victor.latyshey.bean.book.Author;
 import com.victor.latyshey.dao.exception.DaoException;
 import java.util.List;
 

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class DeleteBookCommand implements Command {
 

@@ -14,6 +14,10 @@
 <jsp:include page="../header.jsp"/>
 
 <h1>On this page is contain admin's possibilities</h1>
+<h3>
+    <p><a href="#">Show all users</a></p>
+    <p><a href="#">Change user role</a></p>
+</h3>
 
 </body>
 </html>

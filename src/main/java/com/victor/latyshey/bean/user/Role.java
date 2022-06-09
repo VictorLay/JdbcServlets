@@ -1,8 +1,8 @@
-package com.victor.latyshey.beans.user;
+package com.victor.latyshey.bean.user;
 
-import static com.victor.latyshey.beans.user.NameOfRole.of;
+import static com.victor.latyshey.bean.user.NameOfRole.of;
 
-import com.victor.latyshey.beans.Entity;
+import com.victor.latyshey.bean.Entity;
 import java.io.Serializable;
 
 public class Role extends Entity implements Serializable {

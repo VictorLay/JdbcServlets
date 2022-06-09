@@ -1,6 +1,6 @@
 package com.victor.latyshey.dao;
 
-import com.victor.latyshey.beans.Entity;
+import com.victor.latyshey.bean.Entity;
 import com.victor.latyshey.dao.exception.DaoException;
 
 public interface DAO<Type extends Entity> {

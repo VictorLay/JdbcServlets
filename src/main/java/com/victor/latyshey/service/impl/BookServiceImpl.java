@@ -1,8 +1,7 @@
 package com.victor.latyshey.service.impl;
 
-import com.victor.latyshey.beans.book.Author;
-import com.victor.latyshey.beans.book.Book;
-import com.victor.latyshey.controller.command.impl.book.UpdateBookCommand;
+import com.victor.latyshey.bean.book.Author;
+import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.dao.BookDAO;
 import com.victor.latyshey.dao.exception.DaoException;
 import com.victor.latyshey.dao.transaction.Transaction;

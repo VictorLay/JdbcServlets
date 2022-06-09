@@ -1,4 +1,4 @@
-package com.victor.latyshey.beans;
+package com.victor.latyshey.bean;
 
 import java.util.Objects;
 

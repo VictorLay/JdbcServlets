@@ -4,7 +4,7 @@ import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class ChangeLangCommand implements Command {
 

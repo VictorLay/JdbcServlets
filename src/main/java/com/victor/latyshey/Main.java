@@ -1,33 +1,6 @@
 package com.victor.latyshey;
 
-import com.victor.latyshey.beans.book.Author;
-import com.victor.latyshey.beans.book.Book;
-import com.victor.latyshey.beans.book.Genre;
-import com.victor.latyshey.beans.book.Publishing;
-import com.victor.latyshey.beans.builder.BookBuilder;
-import com.victor.latyshey.beans.user.Role;
-import com.victor.latyshey.beans.user.User;
-import com.victor.latyshey.connection.ConnectionPool;
-import com.victor.latyshey.connection.PoolException;
-import com.victor.latyshey.dao.AuthorDao;
-import com.victor.latyshey.dao.BookDAO;
-import com.victor.latyshey.dao.UserDAO;
-import com.victor.latyshey.dao.exception.DaoException;
-import com.victor.latyshey.dao.impl.AuthorDaoImpl;
-import com.victor.latyshey.dao.impl.BookDAOImpl;
-import com.victor.latyshey.dao.impl.UserDaoImpl;
-import com.victor.latyshey.service.BookService;
-import com.victor.latyshey.service.UserService;
-import com.victor.latyshey.service.exception.ServiceException;
-import com.victor.latyshey.service.impl.BookServiceImpl;
-import com.victor.latyshey.service.impl.UserServiceImpl;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -1,7 +1,7 @@
 package com.victor.latyshey.service.impl;
 
-import com.victor.latyshey.beans.UserSessionInf;
-import com.victor.latyshey.beans.user.User;
+import com.victor.latyshey.bean.UserSessionInf;
+import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.dao.exception.DaoException;
 import com.victor.latyshey.dao.transaction.Transaction;
 import com.victor.latyshey.service.UserService;
@@ -41,6 +41,21 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     try {
       transaction.getUserDao().create(user);
     } catch (DaoException e) {
+      throw new ServiceException(e);
+    }
+  }
+
+  @Override
+  public void changeRole(User user) throws ServiceException {
+    try {
+      transaction.getUserDao().update(user);
+      transaction.commit();
+    } catch (DaoException e) {
+      try {
+        transaction.rollback();
+      } catch (DaoException ex) {
+        throw new ServiceException(ex);
+      }
       throw new ServiceException(e);
     }
 

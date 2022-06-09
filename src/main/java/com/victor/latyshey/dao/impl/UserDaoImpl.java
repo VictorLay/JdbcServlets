@@ -1,7 +1,7 @@
 package com.victor.latyshey.dao.impl;
 
-import com.victor.latyshey.beans.user.Role;
-import com.victor.latyshey.beans.user.User;
+import com.victor.latyshey.bean.user.Role;
+import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.dao.UserDAO;
 import com.victor.latyshey.dao.exception.DaoException;
 import java.sql.PreparedStatement;

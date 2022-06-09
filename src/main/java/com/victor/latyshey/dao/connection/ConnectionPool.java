@@ -1,4 +1,4 @@
-package com.victor.latyshey.connection;
+package com.victor.latyshey.dao.connection;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class ConnectionPool {
 

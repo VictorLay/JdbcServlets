@@ -1,10 +1,10 @@
 package com.victor.latyshey.dao.impl;
 
-import com.victor.latyshey.beans.book.Author;
-import com.victor.latyshey.beans.book.Book;
-import com.victor.latyshey.beans.book.Genre;
-import com.victor.latyshey.beans.book.Publishing;
-import com.victor.latyshey.beans.builder.BookBuilder;
+import com.victor.latyshey.bean.book.Author;
+import com.victor.latyshey.bean.book.Book;
+import com.victor.latyshey.bean.book.Genre;
+import com.victor.latyshey.bean.book.Publishing;
+import com.victor.latyshey.bean.builder.BookBuilder;
 import com.victor.latyshey.dao.BookDAO;
 import com.victor.latyshey.dao.exception.DaoException;
 import java.sql.PreparedStatement;

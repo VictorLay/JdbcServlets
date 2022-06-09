@@ -1,7 +1,7 @@
 package com.victor.latyshey.controller.command.impl.user;
 
-import com.victor.latyshey.beans.UserSessionInf;
-import com.victor.latyshey.beans.user.User;
+import com.victor.latyshey.bean.UserSessionInf;
+import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.dao.exception.DaoException;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class LoginCommand implements Command {
 

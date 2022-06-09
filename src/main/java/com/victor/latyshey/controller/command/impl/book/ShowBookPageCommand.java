@@ -1,6 +1,6 @@
 package com.victor.latyshey.controller.command.impl.book;
 
-import com.victor.latyshey.beans.book.Book;
+import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.dao.exception.DaoException;
@@ -10,7 +10,7 @@ import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class ShowBookPageCommand implements Command {
 

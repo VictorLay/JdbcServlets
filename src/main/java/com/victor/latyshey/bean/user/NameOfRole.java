@@ -1,4 +1,4 @@
-package com.victor.latyshey.beans.user;
+package com.victor.latyshey.bean.user;
 
 import java.util.Optional;
 import java.util.stream.Stream;

@@ -1,6 +1,6 @@
 package com.victor.latyshey.validation;
 
-import com.victor.latyshey.beans.UserSessionInf;
+import com.victor.latyshey.bean.UserSessionInf;
 
 public class SessionInfoValidator implements Validator<UserSessionInf> {
 

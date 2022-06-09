@@ -1,4 +1,4 @@
-package util;
+package com.victor.latyshey.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

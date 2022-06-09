@@ -1,4 +1,4 @@
-package com.victor.latyshey.filters;
+package com.victor.latyshey.controller.filter;
 
 import java.io.IOException;
 import java.util.Locale;

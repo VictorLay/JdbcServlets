@@ -1,10 +1,10 @@
 package com.victor.latyshey.controller.command.impl.book;
 
-import com.victor.latyshey.beans.book.Author;
-import com.victor.latyshey.beans.book.Book;
-import com.victor.latyshey.beans.book.Genre;
-import com.victor.latyshey.beans.book.Publishing;
-import com.victor.latyshey.beans.builder.BookBuilder;
+import com.victor.latyshey.bean.book.Author;
+import com.victor.latyshey.bean.book.Book;
+import com.victor.latyshey.bean.book.Genre;
+import com.victor.latyshey.bean.book.Publishing;
+import com.victor.latyshey.bean.builder.BookBuilder;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.dao.exception.DaoException;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class AddNewBookCommand implements Command {
 

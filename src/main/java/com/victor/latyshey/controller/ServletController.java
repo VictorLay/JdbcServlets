@@ -1,21 +1,17 @@
 package com.victor.latyshey.controller;
 
-import com.victor.latyshey.connection.ConnectionPool;
+import com.victor.latyshey.dao.connection.ConnectionPool;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
-import com.victor.latyshey.dao.exception.DaoException;
-import com.victor.latyshey.dao.transaction.TransactionFactory;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class ServletController extends HttpServlet {
 

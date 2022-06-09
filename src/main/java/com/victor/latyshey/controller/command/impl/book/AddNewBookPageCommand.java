@@ -1,14 +1,13 @@
 package com.victor.latyshey.controller.command.impl.book;
 
-import com.victor.latyshey.beans.UserSessionInf;
-import com.victor.latyshey.beans.user.NameOfRole;
+import com.victor.latyshey.bean.UserSessionInf;
+import com.victor.latyshey.bean.user.NameOfRole;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.validation.SessionInfoValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import util.ResourceManager;
+import com.victor.latyshey.util.ResourceManager;
 
 public class AddNewBookPageCommand implements Command {
 

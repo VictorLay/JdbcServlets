@@ -1,9 +1,7 @@
-package com.victor.latyshey.connection;
+package com.victor.latyshey.dao.connection;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
  * The type Pool exception.

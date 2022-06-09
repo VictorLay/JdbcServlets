@@ -1,6 +1,6 @@
 package com.victor.latyshey.service;
 
-import com.victor.latyshey.beans.book.Book;
+import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.service.exception.ServiceException;
 import java.util.List;
 

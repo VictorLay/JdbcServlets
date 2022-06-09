@@ -1,6 +1,6 @@
-package com.victor.latyshey.beans.user;
+package com.victor.latyshey.bean.user;
 
-import com.victor.latyshey.beans.Entity;
+import com.victor.latyshey.bean.Entity;
 import java.util.Objects;
 
 public class User extends Entity {

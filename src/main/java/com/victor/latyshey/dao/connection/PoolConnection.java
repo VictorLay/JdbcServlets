@@ -1,6 +1,5 @@
-package com.victor.latyshey.connection;
+package com.victor.latyshey.dao.connection;
 
-import com.mysql.cj.log.Log;
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;

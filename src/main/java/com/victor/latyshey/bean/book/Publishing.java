@@ -1,6 +1,6 @@
-package com.victor.latyshey.beans.book;
+package com.victor.latyshey.bean.book;
 
-import com.victor.latyshey.beans.Entity;
+import com.victor.latyshey.bean.Entity;
 import java.util.Objects;
 
 public class Publishing extends Entity {
