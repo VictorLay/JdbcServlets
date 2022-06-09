@@ -2,11 +2,11 @@ package com.victor.latyshey.dao.impl;
 
 import java.sql.Connection;
 
-abstract public class DaoConnection {
+public abstract class DaoConnection {
 
-  protected Connection connection;
+  protected ThreadLocal<Connection> connectionThreadLocal;
 
   public void setConnection(Connection connection) {
-    this.connection = connection;
+    this.connectionThreadLocal = ThreadLocal.withInitial(() -> connection);
   }
 }

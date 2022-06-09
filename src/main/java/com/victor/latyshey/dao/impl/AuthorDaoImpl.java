@@ -24,7 +24,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public Integer create(Author author) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(CREATE_AUTHOR, Statement.RETURN_GENERATED_KEYS)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(CREATE_AUTHOR, Statement.RETURN_GENERATED_KEYS)) {
       statement.setString(1, author.getName());
       statement.setString(2, author.getCountry());
       statement.executeUpdate();
@@ -38,7 +38,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public Author read(Integer id) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(READ_AUTHOR_BY_ID)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_AUTHOR_BY_ID)) {
       statement.setInt(1, id);
       ResultSet query = statement.executeQuery();
       query.next();
@@ -50,7 +50,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public Author readByName(String authorName) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(READ_AUTHOR_BY_NAME)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_AUTHOR_BY_NAME)) {
       statement.setString(1, authorName);
       ResultSet query = statement.executeQuery();
       if (query.next()) {
@@ -64,7 +64,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public List<Author> readByCountry(String country) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(READ_AUTHOR_BY_COUNTRY)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_AUTHOR_BY_COUNTRY)) {
       List<Author> authorList = new ArrayList<>();
       statement.setString(1, country);
       ResultSet query = statement.executeQuery();
@@ -80,7 +80,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public void update(Author author) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(UPDATE_AUTHOR)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(UPDATE_AUTHOR)) {
       statement.setString(1, author.getName());
       statement.setString(2, author.getCountry());
       statement.setInt(3, author.getId());
@@ -92,7 +92,7 @@ public class AuthorDaoImpl extends DaoConnection implements AuthorDao {
 
   @Override
   public void delete(Integer id) throws DaoException {
-    try (PreparedStatement statement = connection.prepareStatement(DELETE_AUTHOR)) {
+    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(DELETE_AUTHOR)) {
       statement.setInt(1, id);
       statement.executeUpdate();
     } catch (SQLException e) {
