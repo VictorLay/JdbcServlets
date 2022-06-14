@@ -6,6 +6,7 @@ import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.victor.latyshey.util.ResourceManager;
@@ -19,7 +20,7 @@ public class ShowBookPageCommand implements Command {
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     try {
-      BookService bookService = new BookServiceImpl();
+      BookService bookService = ServiceFactory.getInstance().getBookService();
       Integer bookId = Integer.parseInt(req.getParameter("book_id"));
       Book book = bookService.showBook(bookId);
       req.setAttribute("book", book);

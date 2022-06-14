@@ -19,7 +19,7 @@ public class AddNewBookPageCommand implements Command {
     SessionInfoValidator validator = new SessionInfoValidator();
     UserSessionInf userInfo = (UserSessionInf) req.getSession().getAttribute(SESSION_USER_INFO);
     //todo заменить валидацию для роли
-    if ( validator.isValid(userInfo).isEmpty() && PERMISSION.getValue().equals(userInfo.getRole())) {
+    if ( validator.isValid(userInfo) && PERMISSION.getValue().equals(userInfo.getRole())) {
       return new CommandResponse(ResourceManager.getProperty("page.book_creating"), false);
     }
     return new CommandResponse(ResourceManager.getProperty("page.enter_error"), false);

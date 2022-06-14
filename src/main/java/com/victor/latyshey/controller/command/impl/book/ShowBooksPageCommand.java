@@ -7,6 +7,7 @@ import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
@@ -24,18 +25,13 @@ public class ShowBooksPageCommand implements Command {
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    BookService bookService = null;
     try {
-      bookService = new BookServiceImpl(TransactionFactory.getInstance().getTransaction());
+      BookService bookService = ServiceFactory.getInstance().getBookService();
 
       req.setAttribute("books", bookService.showBooks());
 
-    } catch (ServiceException | DaoException e) {
+    } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
-    } finally {
-      if (bookService != null) {
-        bookService.releaseTheConnection();
-      }
     }
 
     return new CommandResponse(ResourceManager.getProperty("page.books_showing"), false);

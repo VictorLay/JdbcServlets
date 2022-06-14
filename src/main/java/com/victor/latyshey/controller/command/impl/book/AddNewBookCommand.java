@@ -5,6 +5,7 @@ import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import com.victor.latyshey.util.ObjectExtractor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ public class AddNewBookCommand implements Command {
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     try {
-      BookService bookService = new BookServiceImpl();
+      BookService bookService = ServiceFactory.getInstance().getBookService();
       bookService.createBook(ObjectExtractor.extractBook(req));
 
     } catch (ServiceException e) {

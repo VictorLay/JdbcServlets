@@ -10,6 +10,7 @@ import com.victor.latyshey.dao.exception.DaoException;
 import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import com.victor.latyshey.service.impl.UserServiceImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,22 +34,18 @@ public class RegistrationCommand implements Command {
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    UserService userService = null;
     try {
-      userService = new UserServiceImpl(TransactionFactory.getInstance().getTransaction());
-      userService.register(new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), new Role(DEFAULT_ROLE)));
+      UserService userService = ServiceFactory.getInstance().getUserService();
+      userService.register(
+          new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), new Role(DEFAULT_ROLE)) );
 
       User user = userService.findUser(req.getParameter(LOGIN), req.getParameter(PASSWORD));
       initUserSession(req, user);
 
       return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
-    } catch (ServiceException | DaoException e) {
+    } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
       return new CommandResponse(ResourceManager.getProperty("page.enter_error"),false);
-    }finally {
-      if (userService != null) {
-        userService.releaseTheConnection();
-      }
     }
   }
 

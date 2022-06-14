@@ -8,6 +8,7 @@ import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.BookServiceImpl;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
@@ -23,27 +24,14 @@ public class DeleteBookCommand implements Command {
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
 
     //todo add role validation
-    Transaction transaction;
-    BookService bookService = null;
     try {
-      transaction = TransactionFactory.getInstance().getTransaction();
-    } catch (DaoException e) {
-      logger.log(Level.ERROR, "Get connection error.");
-      return new CommandResponse(ResourceManager.getProperty("page.error"), false);
-    }
-
-    try {
-      bookService = new BookServiceImpl(transaction);
+      BookService bookService = ServiceFactory.getInstance().getBookService();
       bookService.deleteBook(Integer.parseInt(req.getParameter("id")));
       return new CommandResponse(ResourceManager.getProperty("page.home"), false);
     } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
       req.setAttribute("exceptionText", e.toString());
       return new CommandResponse(ResourceManager.getProperty("page.common_error"), false);
-    } finally {
-      if (bookService != null) {
-        bookService.releaseTheConnection();
-      }
     }
   }
 }

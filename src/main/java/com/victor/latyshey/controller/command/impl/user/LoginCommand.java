@@ -8,6 +8,7 @@ import com.victor.latyshey.dao.exception.DaoException;
 import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
+import com.victor.latyshey.service.impl.ServiceFactory;
 import com.victor.latyshey.service.impl.UserServiceImpl;
 import com.victor.latyshey.validation.SessionInfoValidator;
 import javax.servlet.http.HttpServletRequest;
@@ -23,27 +24,21 @@ public class LoginCommand implements Command {
   private static final String PASSWORD = "password";
   private static final String ROLE = "role";
   private static final String SESSION_USER_INFO = "user";
-  private static final Logger logger= LogManager.getLogger();
-
+  private static final Logger logger = LogManager.getLogger();
 
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    UserService userService = null;
     try {
-      userService = new UserServiceImpl(TransactionFactory.getInstance().getTransaction());
+      UserService userService = ServiceFactory.getInstance().getUserService();
 
       if (!isAuthorized(req, userService)) {
         setSessionAttributes(req, userService);
       }
       return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
-    } catch (DaoException | ServiceException e) {
+    } catch (ServiceException e) {
       logger.log(Level.ERROR, "The attempt of login has complete incorrect!", e);
       return new CommandResponse(ResourceManager.getProperty("page.enter_error"), false);
-    } finally {
-      if (userService != null) {
-        userService.releaseTheConnection();
-      }
     }
   }
 
@@ -56,9 +51,9 @@ public class LoginCommand implements Command {
 
     UserSessionInf user = (UserSessionInf) req.getSession().getAttribute(SESSION_USER_INFO);
     SessionInfoValidator validator = new SessionInfoValidator();
-    if (validator.isValid(user).isEmpty() &&
-        user.getLogin().equals(req.getSession().getAttribute(LOGIN)) &&
-        user.getRole().equals(req.getSession().getAttribute(ROLE))) {
+    if (validator.isValid(user) && user.getLogin()
+        .equals(req.getSession().getAttribute(LOGIN)) && user.getRole()
+        .equals(req.getSession().getAttribute(ROLE))) {
       return userService.isUserExist(user);
     } else {
       logger.log(Level.DEBUG, validator.isValid(user));
