@@ -8,7 +8,6 @@ import com.victor.latyshey.dao.transaction.Transaction;
 import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
-import java.io.IOException;
 import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 public class BookServiceImpl implements BookService {
   private static final Logger logger = LogManager.getLogger(BookServiceImpl.class);
 
+  /**
+   * BookService constructor for implementation in {@link ServiceFactory }.
+   */
   BookServiceImpl() {
   }
 
@@ -24,7 +26,7 @@ public class BookServiceImpl implements BookService {
   public List<Book> showBooks() throws ServiceException {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction())  {
       return transaction.getBookDao().readAllBooks();
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
   }
@@ -33,7 +35,7 @@ public class BookServiceImpl implements BookService {
   public Book showBook(Integer id) throws ServiceException {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction()) {
       return transaction.getBookDao().read(id);
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
   }
@@ -44,7 +46,7 @@ public class BookServiceImpl implements BookService {
       setAuthorsAccordingToDataBase(book, transaction);
       transaction.getBookDao().create(book);
       transaction.commit();
-    }catch (DaoException | IOException e){
+    }catch (Exception e){
       throw new ServiceException(e);
     }
   }
@@ -56,7 +58,7 @@ public class BookServiceImpl implements BookService {
       BookDAO bookDao = transaction.getBookDao();
       bookDao.update(book);
       transaction.commit();
-    }catch (DaoException | IOException e){
+    }catch (Exception e){
       logger.log(Level.ERROR, e);
       throw new ServiceException(e);
     }
@@ -67,7 +69,7 @@ public class BookServiceImpl implements BookService {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction())  {
       transaction.getBookDao().delete(id);
       transaction.commit();
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
   }

@@ -12,7 +12,9 @@ import java.io.IOException;
 
 public class UserServiceImpl implements UserService {
 
-
+  /**
+   * UserService constructor for implementation in {@link ServiceFactory }.
+   */
   UserServiceImpl() {
   }
 
@@ -21,7 +23,7 @@ public class UserServiceImpl implements UserService {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction()) {
       UserDAO userDAO = transaction.getUserDao();
       return userDAO.read(login, password);
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
   }
@@ -35,8 +37,8 @@ public class UserServiceImpl implements UserService {
       }
       return userSession.getLogin().equals(user.getLogin()) && userSession.getRole()
           .equals(user.getRole().getRoleName().getValue());
-    } catch (DaoException | IOException e) {
-      throw new ServiceException();
+    } catch (Exception e) {
+      throw new ServiceException(e);
     }
   }
 
@@ -44,7 +46,7 @@ public class UserServiceImpl implements UserService {
   public void register(User user) throws ServiceException {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction()) {
       transaction.getUserDao().create(user);
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
   }
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
     try(Transaction transaction = TransactionFactory.getInstance().getTransaction()) {
       transaction.getUserDao().update(user);
       transaction.commit();
-    } catch (DaoException | IOException e) {
+    } catch (Exception e) {
       throw new ServiceException(e);
     }
 

@@ -54,9 +54,6 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
       statement.execute();
       if (!book.getAuthors().isEmpty()) {
         for (Author author : book.getAuthors()) {
-          if (author.getId() == null) {
-            continue;
-          }
           statementForLinkingTable.setInt(1, book.getId());
           statementForLinkingTable.setInt(2, author.getId());
           statementForLinkingTable.executeUpdate();
@@ -89,11 +86,12 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
       ResultSet query = statement.executeQuery();
       if (query.next()) {
         return createBookFromQuery(query);
+      } else {
+        return null;
       }
     } catch (SQLException e) {
       throw new DaoException(e);
     }
-    return null;
   }
 
   @Override
@@ -115,9 +113,6 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
 
       if (!book.getAuthors().isEmpty()) {
         for (Author author : book.getAuthors()) {
-          if (author.getId() == null) {
-            continue;
-          }
           statementForLinkingTable.setInt(1, book.getId());
           statementForLinkingTable.setInt(2, author.getId());
           statementForLinkingTable.executeUpdate();

@@ -7,7 +7,7 @@ import com.victor.latyshey.dao.exception.DaoException;
 import java.io.Closeable;
 import java.sql.Connection;
 
-public interface Transaction extends Closeable {
+public interface Transaction extends AutoCloseable {
 
   AuthorDao getAuthorDao();
 

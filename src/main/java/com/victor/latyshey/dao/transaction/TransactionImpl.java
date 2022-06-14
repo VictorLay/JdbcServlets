@@ -20,8 +20,8 @@ import org.apache.logging.log4j.Logger;
 public class TransactionImpl implements Transaction {
 
   private final Logger logger = LogManager.getLogger(TransactionImpl.class);
-  private static final String COMMIT_ERROR_LOG =  "Transaction: Commit error!";
-  private static final String ROLLBACK_ERROR_LOG =  "Transaction: rollback error!";
+  private static final String COMMIT_ERROR_LOG = "Transaction: Commit error!";
+  private static final String ROLLBACK_ERROR_LOG = "Transaction: rollback error!";
 
   private Connection connection;
 
@@ -60,7 +60,9 @@ public class TransactionImpl implements Transaction {
   }
 
   /**
-   * After closing transaction happen rollback for this transaction and uncommitted changes will lose.
+   * After closing transaction happen rollback for this transaction and uncommitted changes will
+   * lose.
+   *
    * @throws DaoException
    */
   @Override
@@ -87,11 +89,17 @@ public class TransactionImpl implements Transaction {
   public void close() throws IOException {
     try {
       connection.rollback();
+    } catch (SQLException e) {
+      logger.log(Level.ERROR, "The rollback operation had completed unsuccessfully", e);
+      throw new IOException(e);
+    }
+    try {
       connection.close();
     } catch (SQLException e) {
       logger.log(Level.ERROR, "The connection resource isn't been closed", e);
       throw new IOException(e);
     }
+
   }
 
 }
