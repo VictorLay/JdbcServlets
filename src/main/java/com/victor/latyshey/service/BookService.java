@@ -4,7 +4,7 @@ import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.service.exception.ServiceException;
 import java.util.List;
 
-public interface BookService extends Service {
+public interface BookService {
 
   List<Book> showBooks() throws ServiceException;
   Book showBook(Integer id) throws ServiceException;

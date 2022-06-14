@@ -4,7 +4,7 @@ import com.victor.latyshey.bean.UserSessionInf;
 import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.service.exception.ServiceException;
 
-public interface UserService extends Service {
+public interface UserService {
 
   User findUser(String login, String password) throws ServiceException;
   boolean isUserExist(UserSessionInf userSessionInf) throws ServiceException;
