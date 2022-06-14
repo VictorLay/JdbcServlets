@@ -4,9 +4,9 @@ import java.sql.Connection;
 
 public abstract class DaoConnection {
 
-  protected ThreadLocal<Connection> connectionThreadLocal;
+  protected ThreadLocal<Connection> connection;
 
   public void setConnection(Connection connection) {
-    this.connectionThreadLocal = ThreadLocal.withInitial(() -> connection);
+    this.connection = ThreadLocal.withInitial(() -> connection);
   }
 }

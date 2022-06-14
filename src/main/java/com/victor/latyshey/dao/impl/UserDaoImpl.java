@@ -25,7 +25,7 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
   @Override
   public Integer create(User user) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(CREATE_USER, Statement.RETURN_GENERATED_KEYS)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(CREATE_USER, Statement.RETURN_GENERATED_KEYS)) {
       statement.setInt(1, user.getRole().getId());
       statement.setString(2, user.getLogin());
       statement.setInt(3, user.getPassword().hashCode());
@@ -41,7 +41,7 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
   @Override
   public User read(String signLogin, String password) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_USER_BY_LOGIN_AND_PASSWORD)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(READ_USER_BY_LOGIN_AND_PASSWORD)) {
       statement.setString(1, signLogin);
       statement.setInt(2, password.hashCode());
       ResultSet query = statement.executeQuery();
@@ -59,7 +59,7 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
   @Override
   public User read(Integer id) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_USER_BY_ID)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(READ_USER_BY_ID)) {
       statement.setInt(1, id);
       ResultSet query = statement.executeQuery();
 
@@ -76,7 +76,7 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
   @Override
   public void update(User user) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(UPDATE_USER)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(UPDATE_USER)) {
       statement.setString(1, user.getLogin());
       statement.setInt(2, user.getRole().getId());
       statement.setInt(3, user.getId());
@@ -88,7 +88,7 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
   @Override
   public void delete(Integer id) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(DELETE_USER)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(DELETE_USER)) {
       statement.setInt(1, id);
       statement.executeUpdate();
     } catch (SQLException e) {

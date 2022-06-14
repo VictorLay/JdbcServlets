@@ -42,8 +42,8 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
 
   @Override
   public Integer create(Book book) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(CREATE_NEW_BOOK);
-        PreparedStatement statementForLinkingTable = connectionThreadLocal.get().prepareStatement(
+    try (PreparedStatement statement = connection.get().prepareStatement(CREATE_NEW_BOOK);
+        PreparedStatement statementForLinkingTable = connection.get().prepareStatement(
             CREATE_BOOK_AUTHORS_LINK)) {
       statement.setInt(1, book.getId());
       statement.setString(2, book.getTitle());
@@ -71,7 +71,7 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
   @Override
   public List<Book> readAllBooks() throws DaoException {
     ArrayList<Book> allBooks = new ArrayList<>();
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_ALL_BOOKS)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(READ_ALL_BOOKS)) {
       ResultSet query = statement.executeQuery();
       while (query.next()) {
         allBooks.add(createBookFromQuery(query));
@@ -84,7 +84,7 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
 
   @Override
   public Book read(Integer id) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(READ_BOOK_BY_ID)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(READ_BOOK_BY_ID)) {
       statement.setInt(1, id);
       ResultSet query = statement.executeQuery();
       if (query.next()) {
@@ -99,9 +99,9 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
   @Override
   public void update(Book book) throws DaoException {
 
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(UPDATE);
-        PreparedStatement statement1 = connectionThreadLocal.get().prepareStatement(DELETE_BOOK_AUTHORS_LINK_BY_ISBN);
-    PreparedStatement statementForLinkingTable = connectionThreadLocal.get().prepareStatement(CREATE_BOOK_AUTHORS_LINK)) {
+    try (PreparedStatement statement = connection.get().prepareStatement(UPDATE);
+        PreparedStatement statement1 = connection.get().prepareStatement(DELETE_BOOK_AUTHORS_LINK_BY_ISBN);
+    PreparedStatement statementForLinkingTable = connection.get().prepareStatement(CREATE_BOOK_AUTHORS_LINK)) {
       statement.setInt(1, book.getGenre().getId());
       statement.setInt(2, book.getPublishing().getId());
       statement.setInt(3, book.getYear());
@@ -131,8 +131,8 @@ public class BookDAOImpl extends DaoConnection implements BookDAO {
 
   @Override
   public void delete(Integer id) throws DaoException {
-    try (PreparedStatement statement = connectionThreadLocal.get().prepareStatement(DELETE);
-        PreparedStatement authorStatement = connectionThreadLocal.get()
+    try (PreparedStatement statement = connection.get().prepareStatement(DELETE);
+        PreparedStatement authorStatement = connection.get()
             .prepareStatement(DELETE_BOOK_AUTHORS_LINK_BY_ISBN)) {
       statement.setInt(1, id);
       statement.executeUpdate();
