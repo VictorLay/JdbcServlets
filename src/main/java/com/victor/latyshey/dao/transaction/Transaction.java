@@ -4,9 +4,10 @@ import com.victor.latyshey.dao.AuthorDao;
 import com.victor.latyshey.dao.BookDAO;
 import com.victor.latyshey.dao.UserDAO;
 import com.victor.latyshey.dao.exception.DaoException;
+import java.io.Closeable;
 import java.sql.Connection;
 
-public interface Transaction {
+public interface Transaction extends Closeable {
 
   AuthorDao getAuthorDao();
 
