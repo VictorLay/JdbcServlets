@@ -22,6 +22,12 @@ public class FactoryDAO {
   private final AuthorDao authorDao;
   private final BookDAO bookDAO;
 
+  FactoryDAO(UserDAO userDAO, AuthorDao authorDao, BookDAO bookDAO) {
+    this.userDAO = userDAO;
+    this.authorDao = authorDao;
+    this.bookDAO = bookDAO;
+    instance = this;
+  }
 
   private FactoryDAO() {
     userDAO = new UserDaoImpl();
