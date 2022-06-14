@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.victor.latyshey.util.ResourceManager;
 
 public class ServletController extends HttpServlet {
 
@@ -25,34 +24,26 @@ public class ServletController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    processRequest(req, resp, "GET");
+    processRequest(req, resp);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    processRequest(req, resp, "POST");
+    processRequest(req, resp);
   }
 
-  private void processRequest(HttpServletRequest req, HttpServletResponse resp, String requestType)
+  private void processRequest(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    System.out.println("language " + req.getSession().getAttribute("language"));
 
     String commandName = req.getParameter("command");
     Command command = CommandProvider.getCommand(commandName);
-    if (command == null) {
-      getServletContext().getRequestDispatcher(ResourceManager.getProperty("page.home"))
-          .forward(req, resp);
+    CommandResponse commandResponse = command.execute(req, resp);
+
+    if (commandResponse.isRedirect()) {
+      redirect(resp, commandResponse.getResponsePage());
     } else {
-      System.out.println(commandName);
-      CommandResponse commandResponse = command.execute(req, resp);
-
-      if (commandResponse.isRedirect()) {
-        redirect(resp, commandResponse.getResponsePage());
-      } else {
-        forward(req, resp, commandResponse.getResponsePage());
-      }
-
+      forward(req, resp, commandResponse.getResponsePage());
     }
   }
 
@@ -65,7 +56,6 @@ public class ServletController extends HttpServlet {
 
   private void redirect(HttpServletResponse response, String page) throws IOException {
     response.sendRedirect(page);
-
   }
 
 }
