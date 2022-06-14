@@ -11,10 +11,7 @@ public class SignOutCommand implements Command {
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    HttpSession session = req.getSession();
-    session.removeAttribute("user");
-    session.removeAttribute("login");
-    session.removeAttribute("role");
+    req.getSession().removeAttribute("user");
 
     return new CommandResponse(ResourceManager.getProperty("url.home"), true);
   }

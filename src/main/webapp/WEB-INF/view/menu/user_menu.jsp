@@ -21,9 +21,9 @@
 <img class="sticky" src="https://html5css.ru/edithtm/img_avatar.png" alt="Avatar">
 <h2>Information about user:</h2>
 <c:choose>
-    <c:when test="${login!=null}">
-        <p>NickName of user: ${login}</p>
-        <p>User role: ${role}<p/>
+    <c:when test="${user.login!=null}">
+        <p>NickName of user: ${user.login}</p>
+        <p>User role: ${user.role}<p/>
         <p>User id: ${user.id}</p>
 
         <a href="/viclay.com">Перейти на главную</a>

@@ -23,8 +23,7 @@ public class RegistrationCommand implements Command {
 
   private static final String PASSWORD= "password";
   private static final String LOGIN= "login";
-  private static final String ROLE= "role";
-  private static final NameOfRole DEFAULT_ROLE= NameOfRole.SIGNED_USER;
+  private static final NameOfRole DEFAULT_ROLE = NameOfRole.SIGNED_USER;
   private static final String SESSION_USER_INFO= "user";
   private final Logger logger;
 
@@ -53,8 +52,6 @@ public class RegistrationCommand implements Command {
     UserSessionInf sessionInf = new UserSessionInf(user.getLogin(),
         user.getRole().getRoleName().getValue(), user.getId());
 
-    req.getSession().setAttribute(LOGIN, user.getLogin());
-    req.getSession().setAttribute(ROLE, user.getRole().getRoleName().getValue());
     req.getSession().setAttribute(SESSION_USER_INFO, sessionInf);
   }
 }

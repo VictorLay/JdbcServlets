@@ -22,7 +22,6 @@ public class LoginCommand implements Command {
 
   private static final String LOGIN = "login";
   private static final String PASSWORD = "password";
-  private static final String ROLE = "role";
   private static final String SESSION_USER_INFO = "user";
   private static final Logger logger = LogManager.getLogger();
 
@@ -51,9 +50,8 @@ public class LoginCommand implements Command {
 
     UserSessionInf user = (UserSessionInf) req.getSession().getAttribute(SESSION_USER_INFO);
     SessionInfoValidator validator = new SessionInfoValidator();
-    if (validator.isValid(user) && user.getLogin()
-        .equals(req.getSession().getAttribute(LOGIN)) && user.getRole()
-        .equals(req.getSession().getAttribute(ROLE))) {
+
+    if (validator.isValid(user)) {
       return userService.isUserExist(user);
     } else {
       logger.log(Level.DEBUG, validator.isValid(user));
@@ -67,8 +65,6 @@ public class LoginCommand implements Command {
     UserSessionInf sessionInf = new UserSessionInf(user.getLogin(),
         user.getRole().getRoleName().getValue(), user.getId());
 
-    req.getSession().setAttribute(LOGIN, user.getLogin());
-    req.getSession().setAttribute(ROLE, user.getRole().getRoleName().getValue());
     req.getSession().setAttribute(SESSION_USER_INFO, sessionInf);
   }
 

@@ -8,11 +8,11 @@ import com.victor.latyshey.util.ResourceManager;
 
 public class ChangeLangCommand implements Command {
 
+  private static final String LANG = "language";
+
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    req.getSession().setAttribute("language", req.getParameter("language"));
-    System.out.println(req.getParameter("language"));
-    System.out.println( req.getSession().getAttribute("language"));
+    req.getSession().setAttribute(LANG, req.getParameter(LANG));
     return new CommandResponse(ResourceManager.getProperty("page.home"), false);
   }
 }

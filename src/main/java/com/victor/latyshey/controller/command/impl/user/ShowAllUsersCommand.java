@@ -9,7 +9,7 @@ public class ShowAllUsersCommand implements Command {
 
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
-    req.getSession().getAttribute("role");
+//    req.getSession().getAttribute("role");
     return null;
   }
 }

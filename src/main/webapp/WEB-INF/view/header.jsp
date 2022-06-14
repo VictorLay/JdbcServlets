@@ -45,18 +45,18 @@
         <c:set var="empl_role" value="employee_user" scope="session"/>
         <c:set var="cstm_role" value="signed_user" scope="session"/>
         <c:choose>
-            <c:when test='${role==empl_role}'>
+            <c:when test='${user.role==empl_role}'>
                 <a href="/viclay.com?command=employee_menu_page">Employee room</a>
-                <a href="/viclay.com?command=login">${login}</a>
+                <a href="/viclay.com?command=login">${user.login}</a>
                 <a href="/viclay.com?command=sign_out">${sign_out_text}</a>
             </c:when>
-            <c:when test='${role==adm_role}'>
+            <c:when test='${user.role==adm_role}'>
                 <a href="/viclay.com?command=admin_menu_page">Admin room</a>
-                <a href="/viclay.com?command=login">${login}</a>
+                <a href="/viclay.com?command=login">${user.login}</a>
                 <a href="/viclay.com?command=sign_out">${sign_out_text}</a>
             </c:when>
-            <c:when test='${role==cstm_role}'>
-                <a href="/viclay.com?command=login">${login}</a>
+            <c:when test='${user.role==cstm_role}'>
+                <a href="/viclay.com?command=login">${user.login}</a>
                 <a href="/viclay.com?command=sign_out">${sign_out_text}</a>
             </c:when>
             <c:otherwise>
