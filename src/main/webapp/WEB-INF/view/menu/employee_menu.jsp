@@ -17,5 +17,6 @@
 <h2>Please choose action</h2>
 <a href="/viclay.com?command=add_new_book_page">Add new book</a>
 <a href="/viclay.com?command=update_book_page">Update book</a>
+<a href="/viclay.com?command=delete_book_page">Delete book</a>
 </body>
 </html>

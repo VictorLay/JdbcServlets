@@ -14,18 +14,20 @@ import org.apache.logging.log4j.Logger;
 public class PoolConnection implements Connection {
 
   private static final Logger LOGGER = LogManager.getLogger();
+  private static final String RESOURCE_RELEASE_LOG = "Resource was been made free hash=";
+  private static final String UNCLOSED_DATABASE_LOG = "database is not closed";
+  private static final String UNABLE_AUTO_COMMIT_LOG = "Connection is not returned to AUTO-commit state";
 
 
-  private Connection connection;
+  private final Connection connection;
 
   /**
    * Instantiates a new Pool connection.
    *
    * @param connection the connection
    */
-  PoolConnection(Connection connection) throws SQLException {
+  PoolConnection(Connection connection) {
     this.connection = connection;
-//    this.connection.setAutoCommit(true);
   }
 
   @Override
@@ -70,20 +72,16 @@ public class PoolConnection implements Connection {
 
   @Override
   public void close() {
-    LOGGER.log(Level.INFO, "Resource was been made free hash=" + this.hashCode());
+    LOGGER.log(Level.DEBUG, RESOURCE_RELEASE_LOG);
+    LOGGER.log(Level.DEBUG, this.hashCode());
     try {
-      //todo место возможной ошибки транзакций автозакрытие try-catch with resources приведёт к
-      // автоматическому коммиту операции.
-      // если выполнить закрытие до коммита, то могут перехватить коннектион другие потоки
       connection.setAutoCommit(true);
     } catch (SQLException e) {
-      LOGGER.log(Level.ERROR, "Connection is not returned tu AUTO-commit state", e);
-      throw new RuntimeException("database is not closed", e);
+      LOGGER.log(Level.ERROR, UNABLE_AUTO_COMMIT_LOG, e);
+      throw new RuntimeException(UNCLOSED_DATABASE_LOG, e);
     }
     ConnectionPool.getInstance().releaseConnection(this);
   }
-
-  //todo высвобождать соединение необходимо при коллекте сервиса сборщиком мусора.
 
   /**
    * Real close.
@@ -92,8 +90,8 @@ public class PoolConnection implements Connection {
     try {
       connection.close();
     } catch (SQLException e) {
-//      LOGGER.error("database is not closed", e);
-      throw new RuntimeException("database is not closed", e);
+      LOGGER.log(Level.ERROR, UNCLOSED_DATABASE_LOG, e);
+      throw new RuntimeException(UNCLOSED_DATABASE_LOG, e);
     }
   }
 
@@ -154,17 +152,20 @@ public class PoolConnection implements Connection {
   }
 
   @Override
-  public Statement createStatement(int resultSetType, int resultSetConcurrency) throws SQLException {
+  public Statement createStatement(int resultSetType, int resultSetConcurrency)
+      throws SQLException {
     return connection.createStatement(resultSetType, resultSetConcurrency);
   }
 
   @Override
-  public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+  public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency)
+      throws SQLException {
     return connection.prepareStatement(sql, resultSetType, resultSetConcurrency);
   }
 
   @Override
-  public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency) throws SQLException {
+  public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency)
+      throws SQLException {
     return connection.prepareCall(sql, resultSetType, resultSetConcurrency);
   }
 
@@ -216,17 +217,21 @@ public class PoolConnection implements Connection {
   }
 
   @Override
-  public Statement createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+  public Statement createStatement(int resultSetType, int resultSetConcurrency,
+      int resultSetHoldability) throws SQLException {
     return connection.createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
   }
 
   @Override
-  public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
-    return connection.prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
+  public PreparedStatement prepareStatement(String sql, int resultSetType, int resultSetConcurrency,
+      int resultSetHoldability) throws SQLException {
+    return connection.prepareStatement(sql, resultSetType, resultSetConcurrency,
+        resultSetHoldability);
   }
 
   @Override
-  public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency, int resultSetHoldability) throws SQLException {
+  public CallableStatement prepareCall(String sql, int resultSetType, int resultSetConcurrency,
+      int resultSetHoldability) throws SQLException {
     return connection.prepareCall(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
   }
 

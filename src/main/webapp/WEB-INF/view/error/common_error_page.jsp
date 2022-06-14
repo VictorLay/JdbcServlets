@@ -12,10 +12,8 @@
 </head>
 <body>
 <div>
-    The mistake is happened!
-    <h2>
-        ${exceptionText}
-    </h2>
+    <h1> The mistake happened!</h1>
+    <h2> ${exceptionText}</h2>
 </div>
 
 </body>
