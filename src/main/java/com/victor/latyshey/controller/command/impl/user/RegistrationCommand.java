@@ -1,17 +1,14 @@
 package com.victor.latyshey.controller.command.impl.user;
 
 import com.victor.latyshey.bean.UserSessionInf;
-import com.victor.latyshey.bean.user.NameOfRole;
 import com.victor.latyshey.bean.user.Role;
 import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
-import com.victor.latyshey.dao.exception.DaoException;
-import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.ServiceFactory;
-import com.victor.latyshey.service.impl.UserServiceImpl;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
@@ -23,7 +20,7 @@ public class RegistrationCommand implements Command {
 
   private static final String PASSWORD= "password";
   private static final String LOGIN= "login";
-  private static final NameOfRole DEFAULT_ROLE = NameOfRole.SIGNED_USER;
+  private static final Role DEFAULT_ROLE = Role.SIGNED_USER;
   private static final String SESSION_USER_INFO= "user";
   private final Logger logger;
 
@@ -36,7 +33,7 @@ public class RegistrationCommand implements Command {
     try {
       UserService userService = ServiceFactory.getInstance().getUserService();
       userService.register(
-          new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), new Role(DEFAULT_ROLE)) );
+          new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), Role.SIGNED_USER) );
 
       User user = userService.findUser(req.getParameter(LOGIN), req.getParameter(PASSWORD));
       initUserSession(req, user);
@@ -50,7 +47,7 @@ public class RegistrationCommand implements Command {
 
   private void initUserSession(HttpServletRequest req, User user) {
     UserSessionInf sessionInf = new UserSessionInf(user.getLogin(),
-        user.getRole().getRoleName().getValue(), user.getId());
+        user.getRole().toString().toLowerCase(Locale.ROOT), user.getId());
 
     req.getSession().setAttribute(SESSION_USER_INFO, sessionInf);
   }

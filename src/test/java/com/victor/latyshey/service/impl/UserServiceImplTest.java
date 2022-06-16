@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import com.victor.latyshey.bean.UserSessionInf;
-import com.victor.latyshey.bean.user.NameOfRole;
 import com.victor.latyshey.bean.user.Role;
 import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.dao.AuthorDao;
@@ -30,7 +29,7 @@ class UserServiceImplTest {
   String testPassword = "password";
   String testRole = "admin_user";
   UserService userService;
-  User expectedUser = new User(testLogin, testPassword, new Role());
+  User expectedUser = new User(testLogin, testPassword, Role.ADMIN_USER);
 
   /*
     Initialization code block.
@@ -78,7 +77,7 @@ class UserServiceImplTest {
 
   @Test
   void isUserExistTest() throws ServiceException, DaoException {
-    User user = new User(testLogin, new Role(NameOfRole.ADMIN_USER), 1);
+    User user = new User(testLogin, Role.ADMIN_USER, 1);
     when(userDAO.read(1)).thenReturn(user);
 
     assertEquals(true, userService.isUserExist(new UserSessionInf(testLogin, testRole, 1)));

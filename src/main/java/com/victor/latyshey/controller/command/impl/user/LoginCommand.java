@@ -11,6 +11,7 @@ import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.ServiceFactory;
 import com.victor.latyshey.service.impl.UserServiceImpl;
 import com.victor.latyshey.validation.SessionInfoValidator;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
@@ -63,7 +64,7 @@ public class LoginCommand implements Command {
       throws ServiceException {
     User user = userService.findUser(req.getParameter(LOGIN), req.getParameter(PASSWORD));
     UserSessionInf sessionInf = new UserSessionInf(user.getLogin(),
-        user.getRole().getRoleName().getValue(), user.getId());
+        user.getRole().toString().toLowerCase(Locale.ROOT), user.getId());
 
     req.getSession().setAttribute(SESSION_USER_INFO, sessionInf);
   }

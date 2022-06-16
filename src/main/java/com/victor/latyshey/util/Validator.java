@@ -1,9 +1,13 @@
 package com.victor.latyshey.util;
 
+import static com.victor.latyshey.controller.command.Param.EMPLOYEE_PERMISSION;
+
 import com.victor.latyshey.bean.UserSessionInf;
+import com.victor.latyshey.bean.user.Role;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.validation.SessionInfoValidator;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
@@ -37,5 +41,10 @@ public class Validator {
     } else {
       return false;
     }
+  }
+
+  public static boolean checkPermission(Role requiredRole, HttpServletRequest req){
+    Optional<UserSessionInf> userSessionInf = ObjectExtractor.extractUserInf(req);
+    return userSessionInf.isPresent() && Role.isEqual(requiredRole, userSessionInf.get().getRole());
   }
 }

@@ -1,10 +1,15 @@
 package com.victor.latyshey.util;
 
+import static com.victor.latyshey.controller.command.Param.SESSION_USER_INFO;
+
+import com.victor.latyshey.bean.UserSessionInf;
 import com.victor.latyshey.bean.book.Author;
 import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.bean.book.Genre;
 import com.victor.latyshey.bean.book.Publishing;
 import com.victor.latyshey.bean.builder.BookBuilder;
+import com.victor.latyshey.validation.SessionInfoValidator;
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 public class ObjectExtractor {
@@ -27,6 +32,12 @@ public class ObjectExtractor {
     Book book = builder.getResult();
     builder.reset();
     return book;
+  }
+
+  public static Optional<UserSessionInf> extractUserInf(HttpServletRequest req){
+    SessionInfoValidator validator = new SessionInfoValidator();
+    UserSessionInf userSessionInf = (UserSessionInf) req.getSession().getAttribute(SESSION_USER_INFO);
+    return validator.isValid(userSessionInf)? Optional.of(userSessionInf): Optional.empty();
   }
 
 }

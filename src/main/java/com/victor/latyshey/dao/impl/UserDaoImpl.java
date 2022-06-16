@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.NoSuchElementException;
 
 public class UserDaoImpl extends DaoConnection implements UserDAO {
 
@@ -48,11 +49,11 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
 
       if (query.next()) {
         return new User(query.getString(LOGIN),
-            new Role(query.getString(ROLE), query.getInt(ROLE_ID)), query.getInt(USER_ID));
+            Role.of(query.getString(ROLE)).get(), query.getInt(USER_ID));
       } else {
         throw new DaoException(ILLEGAL_LOGIN_AND_PASSWORD);
       }
-    } catch (SQLException e) {
+    } catch (NoSuchElementException | SQLException e) {
       throw new DaoException(e);
     }
   }
@@ -64,12 +65,11 @@ public class UserDaoImpl extends DaoConnection implements UserDAO {
       ResultSet query = statement.executeQuery();
 
       if (query.next()) {
-        return new User(query.getString(LOGIN),
-                        new Role(query.getString(ROLE), query.getInt(ROLE_ID)),
-                        query.getInt(USER_ID));
+        return new User(query.getString(LOGIN), Role.of(query.getString(ROLE)).get(),
+            query.getInt(USER_ID));
       }
       return null;
-    } catch (SQLException e) {
+    } catch (NoSuchElementException | SQLException e) {
       throw new DaoException(e);
     }
   }

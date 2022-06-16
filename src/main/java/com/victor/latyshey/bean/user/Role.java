@@ -1,51 +1,34 @@
 package com.victor.latyshey.bean.user;
 
-import static com.victor.latyshey.bean.user.NameOfRole.of;
+import java.util.Optional;
+import java.util.stream.Stream;
 
-import com.victor.latyshey.bean.Entity;
-import java.io.Serializable;
+public enum Role {
 
-public class Role extends Entity implements Serializable {
-  private static final long serialVersionUID = 42L;
+  UNKNOWN_USER(1),
+  SIGNED_USER(2),
+  EMPLOYEE_USER(3),
+  ADMIN_USER(4);
 
+  private final Integer id;
 
-  private NameOfRole nameOfRole;
-
-  public Role() {
-    this.nameOfRole = NameOfRole.UNKNOWN_USER;
-    super.setId(1);
+  Role(Integer id) {
+    this.id = id;
   }
 
-  public Role(NameOfRole nameOfRole) {
-    this.nameOfRole = nameOfRole;
-    super.setId(nameOfRole.getId());
+  public Integer getId() {
+    return id;
   }
 
-  public Role(String role, Integer id) {
-    this.nameOfRole = of(role).isPresent() ? of(role).get() : NameOfRole.UNKNOWN_USER;
-    super.setId(id);
+  public static Optional<Role> of(String value) {
+    return Stream.of(Role.values()).filter(r -> r.toString().equalsIgnoreCase(value)).findFirst();
   }
 
-  public NameOfRole getRoleName() {
-    return nameOfRole;
+  public static boolean isEqual(Role role, String value) {
+    Optional<Role> optionalRole = Stream.of(Role.values())
+        .filter(r -> r.toString().equalsIgnoreCase(value)).findFirst();
+    return optionalRole.filter(role::equals).isPresent();
   }
 
-  public void setRoleName(NameOfRole nameOfRole) {
-    this.nameOfRole = nameOfRole;
-  }
 
-  @Override
-  public String toString() {
-    return "nameOfRole=" + nameOfRole.toString() + " roleId=" + super.getId();
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return super.equals(obj);
-  }
-
-  @Override
-  public int hashCode() {
-    return super.hashCode() + nameOfRole.hashCode();
-  }
 }

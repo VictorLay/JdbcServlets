@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
         return false;
       }
       return userSession.getLogin().equals(user.getLogin()) && userSession.getRole()
-          .equals(user.getRole().getRoleName().getValue());
+          .equalsIgnoreCase(user.getRole().toString());
     } catch (Exception e) {
       throw new ServiceException(e);
     }
