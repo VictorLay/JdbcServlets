@@ -14,7 +14,7 @@
         <span> ISBN </span>
         <input
                 type="text"
-                name="isbn"
+                name="book_id"
                 placeholder="Введите ISBN"
                 required
         />

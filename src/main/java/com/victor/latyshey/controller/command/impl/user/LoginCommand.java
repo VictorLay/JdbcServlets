@@ -1,15 +1,18 @@
 package com.victor.latyshey.controller.command.impl.user;
 
+import static com.victor.latyshey.controller.command.Param.LOGIN;
+import static com.victor.latyshey.controller.command.Param.LOGIN_ERROR_PAGE;
+import static com.victor.latyshey.controller.command.Param.PASSWORD;
+import static com.victor.latyshey.controller.command.Param.SESSION_USER_INFO;
+import static com.victor.latyshey.controller.command.Param.USER_HOME_PAGE;
+
 import com.victor.latyshey.bean.UserSessionInf;
 import com.victor.latyshey.bean.user.User;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
-import com.victor.latyshey.dao.exception.DaoException;
-import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.ServiceFactory;
-import com.victor.latyshey.service.impl.UserServiceImpl;
 import com.victor.latyshey.validation.SessionInfoValidator;
 import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +24,6 @@ import com.victor.latyshey.util.ResourceManager;
 
 public class LoginCommand implements Command {
 
-  private static final String LOGIN = "login";
-  private static final String PASSWORD = "password";
-  private static final String SESSION_USER_INFO = "user";
   private static final Logger logger = LogManager.getLogger();
 
 
@@ -35,10 +35,10 @@ public class LoginCommand implements Command {
       if (!isAuthorized(req, userService)) {
         setSessionAttributes(req, userService);
       }
-      return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
+      return new CommandResponse(ResourceManager.getProperty(USER_HOME_PAGE), false);
     } catch (ServiceException e) {
       logger.log(Level.ERROR, "The attempt of login has complete incorrect!", e);
-      return new CommandResponse(ResourceManager.getProperty("page.enter_error"), false);
+      return new CommandResponse(ResourceManager.getProperty(LOGIN_ERROR_PAGE), false);
     }
   }
 

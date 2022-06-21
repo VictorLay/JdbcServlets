@@ -9,6 +9,6 @@ public interface Command {
 
   CommandResponse execute(HttpServletRequest req, HttpServletResponse resp);
 
-//  Logger logger = LogManager.getLogger("Controller log");
+  Logger logger = LogManager.getLogger();
 
 }

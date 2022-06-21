@@ -14,7 +14,7 @@
 <jsp:include page="../header.jsp"/>
 
 <form method="post" action="/viclay.com?command=delete_book">
-    <input name="id" placeholder="Введите id книги"/>
+    <input name="book_id" placeholder="Введите id книги"/>
     <input type="submit" value="Удалить"/>
 </form>
 </body>

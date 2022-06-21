@@ -40,7 +40,6 @@ public class EncodingFilter implements Filter {
       HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
       httpServletRequest.setCharacterEncoding("UTF-8");
       filterChain.doFilter(servletRequest, servletResponse);
-      logger.log(Level.INFO, "The filter is used.");
     } else {
       logger.log(Level.INFO, "The filter isn't used.");
     }

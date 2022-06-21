@@ -1,5 +1,12 @@
 package com.victor.latyshey.controller.command.impl.user;
 
+import static com.victor.latyshey.controller.command.Param.DEFAULT_ROLE;
+import static com.victor.latyshey.controller.command.Param.LOGIN;
+import static com.victor.latyshey.controller.command.Param.LOGIN_ERROR_PAGE;
+import static com.victor.latyshey.controller.command.Param.PASSWORD;
+import static com.victor.latyshey.controller.command.Param.SESSION_USER_INFO;
+import static com.victor.latyshey.controller.command.Param.USER_HOME_PAGE;
+
 import com.victor.latyshey.bean.UserSessionInf;
 import com.victor.latyshey.bean.user.Role;
 import com.victor.latyshey.bean.user.User;
@@ -17,31 +24,21 @@ import org.apache.logging.log4j.Logger;
 import com.victor.latyshey.util.ResourceManager;
 
 public class RegistrationCommand implements Command {
-
-  private static final String PASSWORD= "password";
-  private static final String LOGIN= "login";
-  private static final Role DEFAULT_ROLE = Role.SIGNED_USER;
-  private static final String SESSION_USER_INFO= "user";
-  private final Logger logger;
-
-  public RegistrationCommand() {
-    logger = LogManager.getLogger();
-  }
-
+  private final Logger logger = LogManager.getLogger();
   @Override
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     try {
       UserService userService = ServiceFactory.getInstance().getUserService();
       userService.register(
-          new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), Role.SIGNED_USER) );
+          new User(req.getParameter(LOGIN), req.getParameter(PASSWORD), DEFAULT_ROLE) );
 
       User user = userService.findUser(req.getParameter(LOGIN), req.getParameter(PASSWORD));
       initUserSession(req, user);
 
-      return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
+      return new CommandResponse(ResourceManager.getProperty(USER_HOME_PAGE), false);
     } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
-      return new CommandResponse(ResourceManager.getProperty("page.enter_error"),false);
+      return new CommandResponse(ResourceManager.getProperty(LOGIN_ERROR_PAGE),false);
     }
   }
 

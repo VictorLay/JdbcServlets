@@ -1,5 +1,11 @@
 package com.victor.latyshey.controller.command.impl.book;
 
+import static com.victor.latyshey.controller.command.Param.BOOK;
+import static com.victor.latyshey.controller.command.Param.BOOK_ID;
+import static com.victor.latyshey.controller.command.Param.COMMON_ERROR_PAGE;
+import static com.victor.latyshey.controller.command.Param.ERROR_MESSAGE;
+import static com.victor.latyshey.controller.command.Param.SHOW_ONE_BOOK_PAGE;
+
 import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
@@ -23,13 +29,13 @@ public class UpdateBookCommand implements Command {
     try {
       BookService bookService = ServiceFactory.getInstance().getBookService();
       bookService.updateBook(ObjectExtractor.extractBook(req));
-      Book book = bookService.showBook(Integer.parseInt(req.getParameter("isbn")));
-      req.getSession().setAttribute("book", book);
-      return new CommandResponse(ResourceManager.getProperty("page.book_showing"),false);
+      Book book = bookService.showBook(Integer.parseInt(req.getParameter(BOOK_ID)));
+      req.getSession().setAttribute(BOOK, book);
+      return new CommandResponse(ResourceManager.getProperty(SHOW_ONE_BOOK_PAGE),false);
     }catch (ServiceException | RuntimeException e){
       logger.log(Level.ERROR, e);
-      req.setAttribute("exceptionText", e.toString());
-      return new CommandResponse(ResourceManager.getProperty("page.common_error"), false);
+      req.setAttribute(ERROR_MESSAGE, "Error of update");
+      return new CommandResponse(ResourceManager.getProperty(COMMON_ERROR_PAGE), false);
     }
   }
 

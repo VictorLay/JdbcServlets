@@ -21,7 +21,7 @@ public class ObjectExtractor {
    */
   public static Book extractBook(HttpServletRequest req) {
     BookBuilder builder = new BookBuilder();
-    builder.setId(Integer.parseInt(req.getParameter("isbn")));
+    builder.setId(Integer.parseInt(req.getParameter("book_id")));
     builder.setTitle(String.valueOf(req.getParameter("title")));
     builder.setGenre(new Genre(Integer.parseInt(req.getParameter("genreName"))));
     builder.setPublishing(new Publishing(Integer.parseInt(req.getParameter("publishingName"))));

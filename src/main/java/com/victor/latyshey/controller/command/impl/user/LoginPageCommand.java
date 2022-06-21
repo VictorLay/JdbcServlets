@@ -1,16 +1,15 @@
 package com.victor.latyshey.controller.command.impl.user;
 
-import com.victor.latyshey.bean.UserSessionInf;
+import static com.victor.latyshey.controller.command.Param.LOGIN_ERROR_PAGE;
+import static com.victor.latyshey.controller.command.Param.LOGIN_PAGE;
+import static com.victor.latyshey.controller.command.Param.USER_HOME_PAGE;
+
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
-import com.victor.latyshey.dao.exception.DaoException;
-import com.victor.latyshey.dao.transaction.TransactionFactory;
 import com.victor.latyshey.service.UserService;
 import com.victor.latyshey.service.exception.ServiceException;
 import com.victor.latyshey.service.impl.ServiceFactory;
-import com.victor.latyshey.service.impl.UserServiceImpl;
 import com.victor.latyshey.util.Validator;
-import com.victor.latyshey.validation.SessionInfoValidator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.Level;
@@ -26,12 +25,12 @@ public class LoginPageCommand implements Command {
     try {
       UserService userService = ServiceFactory.getInstance().getUserService();
       if (Validator.isAuthorized(req, userService)) {
-        return new CommandResponse(ResourceManager.getProperty("page.user_home_page"), false);
+        return new CommandResponse(ResourceManager.getProperty(USER_HOME_PAGE), false);
       }
-      return new CommandResponse(ResourceManager.getProperty("page.login"), false);
+      return new CommandResponse(ResourceManager.getProperty(LOGIN_PAGE), false);
     } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
-      return new CommandResponse(ResourceManager.getProperty("page.enter_error"), false);
+      return new CommandResponse(ResourceManager.getProperty(LOGIN_ERROR_PAGE), false);
     }
   }
 

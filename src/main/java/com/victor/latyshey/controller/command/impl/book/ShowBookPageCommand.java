@@ -1,11 +1,15 @@
 package com.victor.latyshey.controller.command.impl.book;
 
+import static com.victor.latyshey.controller.command.Param.BOOK;
+import static com.victor.latyshey.controller.command.Param.BOOK_ID;
+import static com.victor.latyshey.controller.command.Param.COMMON_ERROR_PAGE;
+import static com.victor.latyshey.controller.command.Param.SHOW_ONE_BOOK_PAGE;
+
 import com.victor.latyshey.bean.book.Book;
 import com.victor.latyshey.controller.command.Command;
 import com.victor.latyshey.controller.command.CommandResponse;
 import com.victor.latyshey.service.BookService;
 import com.victor.latyshey.service.exception.ServiceException;
-import com.victor.latyshey.service.impl.BookServiceImpl;
 import com.victor.latyshey.service.impl.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,14 +25,14 @@ public class ShowBookPageCommand implements Command {
   public CommandResponse execute(HttpServletRequest req, HttpServletResponse resp) {
     try {
       BookService bookService = ServiceFactory.getInstance().getBookService();
-      Integer bookId = Integer.parseInt(req.getParameter("book_id"));
+      Integer bookId = Integer.parseInt(req.getParameter(BOOK_ID));
       Book book = bookService.showBook(bookId);
-      req.setAttribute("book", book);
+      req.setAttribute(BOOK, book);
     } catch (ServiceException e) {
       logger.log(Level.ERROR, e);
-      return new CommandResponse(ResourceManager.getProperty("page.common_error"), false);
+      return new CommandResponse(ResourceManager.getProperty(COMMON_ERROR_PAGE), false);
     }
 
-    return new CommandResponse(ResourceManager.getProperty("page.book_showing"), false);
+    return new CommandResponse(ResourceManager.getProperty(SHOW_ONE_BOOK_PAGE), false);
   }
 }
