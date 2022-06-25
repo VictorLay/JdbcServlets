@@ -18,39 +18,37 @@ import com.victor.latyshey.controller.command.impl.user.RegistrationPageCommand;
 import com.victor.latyshey.controller.command.impl.book.ShowBookPageCommand;
 import com.victor.latyshey.controller.command.impl.book.ShowBooksPageCommand;
 import com.victor.latyshey.controller.command.impl.user.SignOutCommand;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 public class CommandProvider {
 
-  private static final Map<String, Command> commandStorage = new HashMap<>();
+  private CommandProvider() {
+  }
+
+  private static final EnumMap<CommandName, Command> commands= new EnumMap<>(CommandName.class);
 
   static {
-    commandStorage.put("registration", new RegistrationCommand());
-    commandStorage.put("registration_page", new RegistrationPageCommand());
-    commandStorage.put("login_page", new LoginPageCommand());
-    commandStorage.put("login", new LoginCommand());
-    commandStorage.put("add_new_book_page", new AddNewBookPageCommand());
-    commandStorage.put("add_new_book", new AddNewBookCommand());
-    commandStorage.put("book_showing", new ShowBooksPageCommand());
-    commandStorage.put("sign_out", new SignOutCommand());
-    commandStorage.put("show_book", new ShowBookPageCommand());
-    commandStorage.put("update_book", new UpdateBookCommand());
-    commandStorage.put("update_book_page", new UpdateBookPageCommand());
-    commandStorage.put("delete_book", new DeleteBookCommand());
-    commandStorage.put("delete_book_page", new DeleteBookPageCommand());
-    commandStorage.put("employee_menu_page", new EmployeeMenuPageCommand());
-    commandStorage.put("admin_menu_page", new AdminMenuPageCommand());
-    commandStorage.put("change_lang_command", new ChangeLangCommand());
-    commandStorage.put("home_page", new HomePageCommand());
+    commands.put(CommandName.REGISTRATION_COMMAND, new RegistrationCommand());
+    commands.put(CommandName.REGISTRATION_PAGE, new RegistrationPageCommand());
+    commands.put(CommandName.LOGIN_COMMAND, new LoginCommand());
+    commands.put(CommandName.LOGIN_PAGE, new LoginPageCommand());
+    commands.put(CommandName.ADD_NEW_BOOK_PAGE, new AddNewBookPageCommand());
+    commands.put(CommandName.ADD_NEW_BOOK_COMMAND, new AddNewBookCommand());
+    commands.put(CommandName.SHOW_ALL_BOOKS_PAGE, new ShowBooksPageCommand());
+    commands.put(CommandName.SIGN_OUT_COMMAND, new SignOutCommand());
+    commands.put(CommandName.SHOW_ONE_BOOK, new ShowBookPageCommand());
+    commands.put(CommandName.UPDATE_BOOK_COMMAND, new UpdateBookCommand());
+    commands.put(CommandName.UPDATE_BOOK_PAGE, new UpdateBookPageCommand());
+    commands.put(CommandName.DELETE_BOOK_COMMAND, new DeleteBookCommand());
+    commands.put(CommandName.DELETE_BOOK_PAGE, new DeleteBookPageCommand());
+    commands.put(CommandName.EMPLOYEE_MENU_PAGE, new EmployeeMenuPageCommand());
+    commands.put(CommandName.ADMIN_MENU_PAGE, new AdminMenuPageCommand());
+    commands.put(CommandName.CHANGE_LANGUAGE_COMMAND, new ChangeLangCommand());
+    commands.put(CommandName.DEFAULT, new HomePageCommand());
   }
 
   public static Command getCommand(String commandName) {
-    if (commandStorage.get(commandName) == null) {
-      return commandStorage.get("home_page");
-    } else {
-      return commandStorage.get(commandName);
-    }
+    return commands.get(CommandName.of(commandName));
   }
 
 }
